@@ -160,7 +160,7 @@ function PostCustom(props){
                                     )}
                                 />
                                 <div className='comment-form'>
-                                    <Input />
+                                    <Input className='abc' />
                                     <Button className='btn-black btn-send-comment' icon={<SendOutlined style={{color: 'white'}} />} />
                                 </div>
                             </div>
