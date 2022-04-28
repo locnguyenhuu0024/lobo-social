@@ -147,21 +147,21 @@ function PostCustom(props){
                                 <List
                                     itemLayout="horizontal"
                                     dataSource={comments}
-                                    renderItem={item => (
+                                    renderItem={comment => (
                                         <List.Item
                                             actions={[]}
                                         >
                                             <List.Item.Meta
                                                 avatar={<Avatar src='https://joeschmoe.io/api/v1/random' />}
-                                                title={<Link to="/" >{item.name}</Link>}
-                                                description={item.content}
+                                                title={<Link to="/" >{comment.name}</Link>}
+                                                description={comment.content}
                                             />
                                         </List.Item>
                                     )}
                                 />
-                                <div className='TOI-DAY-ROI'>
-                                    <Input width={'100%'} />
-                                    <Button className='btn-black' icon={<SendOutlined style={{color: 'white'}} />} />
+                                <div className='comment-form'>
+                                    <Input />
+                                    <Button className='btn-black btn-send-comment' icon={<SendOutlined style={{color: 'white'}} />} />
                                 </div>
                             </div>
                         }

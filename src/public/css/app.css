@@ -347,6 +347,15 @@ label.ant-form-item-required::before {
 .post-footer__comments {
   background-color: transparent;
 }
+.post-footer__comments .comment-form {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.post-footer__comments .comment-form .btn-send-comment {
+  width: 64px !important;
+}
 
 @media only screen and (min-width: 890px) {
   .img-selfie img {

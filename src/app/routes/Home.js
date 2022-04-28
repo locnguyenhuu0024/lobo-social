@@ -23,7 +23,6 @@ function Home(props){
         try {
             const posts = await axios('https://6269e637737b438c1c3f0baf.mockapi.io/posts');
             setPost(posts.data)
-            console.log(posts.data);
         } catch (error) {
             console.log(error);
         }
