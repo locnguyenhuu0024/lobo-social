@@ -58,15 +58,7 @@ function Home(props){
                 <HeaderCustom />
             </Affix>
             <Layout style={{ minHeight: '100vh' }}>
-                {
-                    window.innerWidth > 890 && 
-                    <Sider 
-                        // style={{backgroundColor: 'transparent'}}
-                        width={300}
-                    >
-                        Sider
-                    </Sider>
-                }
+                
                 <Layout>
                     <Content>
                         {

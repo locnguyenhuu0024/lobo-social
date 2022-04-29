@@ -66,8 +66,12 @@ label.ant-form-item-required::before {
 .ant-btn.ant-btn-circle {
   height: 32px !important;
   min-width: 32px !important;
-  background-color: black !important;
+  background-color: transparent !important;
   border: none !important;
+}
+.ant-btn.ant-btn-circle span {
+  color: black;
+  font-size: 24px !important;
 }
 
 @media only screen and (min-width: 890px) {
@@ -86,7 +90,7 @@ label.ant-form-item-required::before {
 }
 @media only screen and (max-width: 889px) {
   .ant-layout-header.header {
-    padding: 0px !important;
+    padding: 0px 16px !important;
   }
 }
 .header {
@@ -264,6 +268,8 @@ label.ant-form-item-required::before {
   width: "100%";
   background-color: white;
   padding: 0;
+  border-radius: 5px;
+  box-shadow: 2px 3px 5px rgba(177, 177, 177, 0.3);
 }
 .post a {
   text-decoration: none;
@@ -302,7 +308,7 @@ label.ant-form-item-required::before {
 .post-header__right .three-dot {
   display: flex;
   flex-direction: row;
-  align-items: cen;
+  align-items: center;
   padding: 16px 8px;
   border-radius: 50%;
   transition: all 200ms ease-in-out;
@@ -351,10 +357,15 @@ label.ant-form-item-required::before {
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 .post-footer__comments .comment-form .btn-send-comment {
-  width: 64px !important;
+  min-width: 64px !important;
+  margin-left: 8px;
+}
+.post-footer__comments .comment-form .ant-input {
+  min-width: 256px;
+  border-radius: 10px !important;
 }
 
 @media only screen and (min-width: 890px) {
@@ -443,6 +454,45 @@ label.ant-form-item-required::before {
 
   .three-dot:hover {
     background-color: rgba(177, 177, 177, 0.6);
+  }
+
+  .post {
+    max-width: 580px;
+    margin: auto;
+  }
+  .post-header {
+    padding: 16px;
+  }
+  .post-header__left .post-info {
+    font-size: 12px;
+  }
+  .post-header__left .post-info--scale .anticon {
+    margin-right: 8px;
+  }
+  .post-body__content {
+    padding: 16px;
+  }
+  .post-body__content p {
+    font-size: 15px;
+  }
+  .post-footer {
+    padding: 16px;
+  }
+  .post-footer a {
+    font-size: 16px;
+  }
+  .post-footer__comments .comment-form {
+    width: 100%;
+    justify-content: center;
+  }
+  .post-footer__comments .comment-form .btn-send-comment {
+    min-width: 64px !important;
+    margin-left: 8px;
+  }
+  .post-footer__comments .comment-form .ant-input {
+    min-width: 468px;
+    padding: 8px 12px;
+    border-radius: 10px !important;
   }
 }
 

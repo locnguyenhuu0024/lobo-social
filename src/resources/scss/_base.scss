@@ -82,8 +82,13 @@ label.ant-form-item-required::before{
 .ant-btn.ant-btn-circle{
     height: 32px !important;
     min-width: 32px !important;
-    background-color: black !important;
+    background-color: transparent !important;
     border: none !important;
+
+    span{
+        color: black;
+        font-size: 24px !important;
+    }
 }
 
 @media only screen and (min-width: 890px) {
@@ -101,7 +106,7 @@ label.ant-form-item-required::before{
 
 @media only screen and (max-width: 889px) {
     .ant-layout-header.header{
-        padding: 0px !important;
+        padding: 0px 16px !important;
     }
 }
 

@@ -1,5 +1,5 @@
 import { Layout, Row, Button, Avatar, Menu, Dropdown, Badge } from 'antd';
-import { SearchOutlined, BellFilled, CompassFilled, UserOutlined  } from '@ant-design/icons'
+import { SearchOutlined, BellFilled, CompassOutlined, UserOutlined  } from '@ant-design/icons'
 import { Link } from 'react-router-dom';
 
 const { Header } = Layout;
@@ -66,24 +66,23 @@ const menuNotify = (
 function HeaderCustom(props){
     return(
         <Header className='header'>
-            <Row className='container' justify='space-between' align='middle'>
+            <Row justify='space-between' align='middle'>
                 <Link to='/'><img src='/logo.svg' width={40} height={40} alt='logo'/></Link>
                 
                 <div className='nav-buttons'>
                     <Button type="primary" shape='circle' 
-                        icon={<SearchOutlined style={{fontSize: '20px'}} />}  
-                        style={{backgroundColor: 'black !important'}} 
+                        icon={<SearchOutlined />}  
+                        style={{backgroundColor: 'transparent !important'}} 
                     />
 
                     <Button type="primary" shape='circle' 
-                        icon={<CompassFilled style={{fontSize: '20px'}} />}  
-                        style={{backgroundColor: 'black !important'}} 
+                        icon={<CompassOutlined />}
                     />
 
                     <Dropdown overlay={menuNotify} trigger={['click']} placement='bottomRight' arrow>
-                        <Badge count={items.length} size={'small'} offset={[-7, 6]} >
+                        <Badge count={items.length} size={'small'} offset={[-10, 10]} >
                             <Button type="primary" shape='circle' 
-                                icon={<BellFilled style={{fontSize: '20px'}} />} color='black' 
+                                icon={<BellFilled />} color='black' 
                             />
                         </Badge>
                     </Dropdown>

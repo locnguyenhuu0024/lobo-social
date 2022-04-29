@@ -1,64 +1,31 @@
-import { useState, useEffect } from 'react';
-import { Skeleton, Avatar, Carousel, Typography, Divider, Button, List, Input, Space } from 'antd';
+import { useState, useEffect, useRef } from 'react';
+import { Skeleton, Avatar, Carousel, Typography, Divider, Button, List, Input, Form } from 'antd';
 import { CommentOutlined, ClockCircleOutlined, SendOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import moment from 'moment';
 import 'moment/locale/vi';
+import ScrollIntoView from 'react-scroll-into-view'
 
 const { Text } = Typography;
-
-const contentStyle = {
-    height: '300px',
-    color: '#fff',
-    lineHeight: '160px',
-    textAlign: 'center',
-    background: '#364d79',
-};
-
-const data = [
-    {
-        title: 'Ant Design Title 1',
-    },
-    {
-        title: 'Ant Design Title 2',
-    },
-    {
-        title: 'Ant Design Title 3',
-    },
-    {
-        title: 'Ant Design Title 4',
-    },
-];
 
 function PostCustom(props){
     const [loading, setLoading] = useState(true);
     const [love, setLove] = useState(false);
     const [showComments, setShowComment] = useState(false);
-    const [comments, setComments] = useState([]);
+    const [form] = Form.useForm();
+    const inputCommentRef = useRef();
 
     const {post} = props;
 
-    
-    const getComments = async () => {
-        try {
-            const loadedComments = await axios.get(`https://6269e637737b438c1c3f0baf.mockapi.io/posts/${post.id}/comments`);
-            setComments(loadedComments.data);
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
     useEffect(() => {
-        // if(showComments){
-        //     getComments()
-        // }
+        
     }, []);
 
 
     const Love = () => {
         return (
-            <a key={'love'} onClick={() => setLove(!love)} style={{marginRight: '12px'}}>
+            <a key={'love'} onClick={handleLove} style={{marginRight: '12px'}}>
                 <img 
                     src={love == false ? '/images/love.png' : '/images/loved.png'} 
                     alt='love' width={25} 
@@ -67,17 +34,29 @@ function PostCustom(props){
         )
     }
 
-    const onChange = checked => {
-        setLoading(!checked);
+    const handleScrollToComment = () => {
+        // Cuộn tới ô nhập bình luận
+        form.scrollToField(`comment-form-post-${post.id}`, {
+            block: 'center',
+            inline: 'center'
+        });
+        // Focus vào ô nhập bình luận
+        inputCommentRef.current.focus({
+            cursor: 'start'
+        })
     };
 
-    const handleLove = () => {
+    const handleComment = values => {
+        console.log(values);
 
+    }
+
+    const handleLove = () => {
+        setLove(!love)
     };
 
     const handleShowComments = () => {
         setShowComment(!showComments);
-        getComments();
     };
 
     return (
@@ -138,15 +117,29 @@ function PostCustom(props){
                     </div>
                     <div className='post-footer__comments mt-2'>
                         {
-                            showComments == false
+                            showComments === false
                             ?<Button 
                                 type='link' style={{color: 'grey'}}
                                 onClick={handleShowComments}
                             >Bấm để xem {post.comments.length} bình luận</Button>
                             :<div>
+                                <Form id={`comment-form-post-${post.id}`} className={`comment-form`} onFinish={handleComment}>
+                                    <Form.Item
+                                        name={'comment'}
+                                    >
+                                        <Input ref={inputCommentRef} id='comment' placeholder='Nhập bình luận...' />
+                                    </Form.Item>
+                                    <Form.Item>
+                                        <Button 
+                                            htmlType='submit' 
+                                            className='btn-black btn-send-comment' 
+                                            icon={<SendOutlined style={{color: 'white'}} />} 
+                                        />
+                                    </Form.Item>
+                                </Form>
                                 <List
                                     itemLayout="horizontal"
-                                    dataSource={comments}
+                                    dataSource={post.comments}
                                     renderItem={comment => (
                                         <List.Item
                                             actions={[]}
@@ -159,10 +152,11 @@ function PostCustom(props){
                                         </List.Item>
                                     )}
                                 />
-                                <div className='comment-form'>
-                                    <Input className='abc' />
-                                    <Button className='btn-black btn-send-comment' icon={<SendOutlined style={{color: 'white'}} />} />
-                                </div>
+                                <Button 
+                                    type='link' style={{color: 'grey'}}
+                                    onClick={handleScrollToComment}
+                                >Thêm bình luận cho ảnh này.</Button>
+                                {/* TOI DAY ROI */}
                             </div>
                         }
                     </div>
