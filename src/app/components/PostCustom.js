@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from 'react';
 import { Skeleton, Avatar, Carousel, Typography, Divider, Button, List, Input, Form } from 'antd';
 import { CommentOutlined, ClockCircleOutlined, SendOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import moment from 'moment';
 import 'moment/locale/vi';
 import ScrollIntoView from 'react-scroll-into-view'
