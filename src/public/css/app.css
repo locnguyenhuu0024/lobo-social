@@ -262,6 +262,27 @@ label.ant-form-item-required::before {
   font-weight: 700;
 }
 
+.add-image-component {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 8px 10px;
+  max-width: 580px;
+  background-color: white;
+  border-radius: 5px;
+  margin: auto;
+  margin-top: 16px;
+  font-size: 12px;
+  box-shadow: 2px 3px 5px rgba(177, 177, 177, 0.3);
+}
+.add-image-component p {
+  margin-bottom: 8px;
+}
+.add-image-component .ant-btn {
+  width: 100%;
+}
+
 .post {
   display: flex;
   flex-direction: column;
@@ -493,6 +514,21 @@ label.ant-form-item-required::before {
     min-width: 468px;
     padding: 8px 12px;
     border-radius: 10px !important;
+  }
+
+  .add-image-component {
+    padding: 16px;
+    font-size: 15px;
+    flex-direction: row;
+    align-items: center;
+  }
+  .add-image-component p {
+    margin-bottom: 0px;
+  }
+  .add-image-component .ant-btn {
+    height: fit-content;
+    width: 420px;
+    padding: 10px 0px;
   }
 }
 

@@ -66,7 +66,7 @@ const menuNotify = (
 function HeaderCustom(props){
     return(
         <Header className='header'>
-            <Row justify='space-between' align='middle'>
+            <Row justify='space-between' align='middle' >
                 <Link to='/'><img src='/logo.svg' width={40} height={40} alt='logo'/></Link>
                 
                 <div className='nav-buttons'>

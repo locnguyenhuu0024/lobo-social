@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Layout, message, Affix, Card, List, Skeleton } from 'antd';
+import { Layout, message, Affix, Card, List, Skeleton, Button } from 'antd';
 import HeaderCustom from '../components/HeaderCustom';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -10,6 +10,13 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 
 const { Sider, Content } = Layout;
+
+const styleAddImageComponent = {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: '',
+
+}
 
 function Home(props){
     const navigate = useNavigate();
@@ -61,6 +68,12 @@ function Home(props){
                 
                 <Layout>
                     <Content>
+                        <div className='add-image-component'>
+                            <p style={{width: 'fit-content'}}>Thêm ảnh mới</p>
+                            <Button>
+                                <img src='/images/add-image.png' alt='btn add image' width={23} height={23} />
+                            </Button>
+                        </div>
                         {
                             posts.length <= 0
                                 ?<WaitingScreenCustom 
