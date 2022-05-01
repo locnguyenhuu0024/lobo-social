@@ -17,15 +17,15 @@ const postSlice = createSlice({
     reducers:{
         // Khi lấy dữ liệu posts
         getPostsStart: (state) => {
-            state.post.isFetching = true;
+            state.posts.isFetching = true;
         },
         getPostsSuccess: (state, action) => {
             state.posts.listPosts = action.payload;
-            state.post.isFetching = false;
+            state.posts.isFetching = false;
         },
         getPostsFailed: (state) => {
-            state.post.isFetching = false;
-            state.post.error = true;
+            state.posts.isFetching = false;
+            state.posts.error = true;
         },
 
     }

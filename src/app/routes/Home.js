@@ -1,29 +1,19 @@
 import { useEffect, useState } from 'react';
-import { Layout, message, Affix, Card, List, Skeleton, Button } from 'antd';
+import { Layout, message, Affix,} from 'antd';
 import HeaderCustom from '../components/HeaderCustom';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import WaitingScreenCustom from '../components/WaitingScreenCustom';
-import PostCustom from '../components/PostCustom';
 import axios from 'axios';
-//import { getPosts } from '../redux/apiRequest';
 import { useDispatch } from 'react-redux';
+import BodyHome from '../components/BodyHome';
 
 const { Sider, Content } = Layout;
-
-const styleAddImageComponent = {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: '',
-
-}
 
 function Home(props){
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const currentUser = useSelector(state => state.auth.login.currentUser);
-    //const posts = useSelector(state => state.post.posts.listPosts);
-    const isFetchingPosts = useSelector(state => state.post.posts.isFetching);
     const [posts, setPost] = useState([]);
 
     const getPosts = async () => {
@@ -68,25 +58,13 @@ function Home(props){
                 
                 <Layout>
                     <Content>
-                        <div className='add-image-component'>
-                            <p style={{width: 'fit-content'}}>Thêm ảnh mới</p>
-                            <Button>
-                                <img src='/images/add-image.png' alt='btn add image' width={23} height={23} />
-                            </Button>
-                        </div>
+                        
                         {
                             posts.length <= 0
                                 ?<WaitingScreenCustom 
                                     sizeIcon='64px'
                                 />
-                                :<List 
-                                    dataSource={posts}
-                                    renderItem={
-                                        post => (
-                                            <PostCustom post={post} />
-                                        )
-                                    }
-                                />
+                                :<BodyHome posts={posts} />
                         }
                         
                     </Content>

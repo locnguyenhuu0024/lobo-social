@@ -91,6 +91,28 @@ label.ant-form-item-required::before{
     }
 }
 
+.ant-modal-content, .ant-modal-header{
+    border-radius: 5px !important;
+}
+
+.ant-modal{
+    .ant-btn-primary{
+        background-color: black !important;
+        border-color: black !important;
+        border-radius: 5px !important;
+        color: white !important;
+        font-weight: 700 !important;
+    }
+    .ant-btn-default{
+        background-color: #f3f3f3 !important;
+        border-color: #f3f3f3 !important;
+        border-radius: 5px !important;
+        color: black !important;
+    }
+
+}
+
+
 @media only screen and (min-width: 890px) {
     .ant-form-item-explain-error{
         font-size: 12px; 

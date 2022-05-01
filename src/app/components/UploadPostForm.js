@@ -1,22 +1,10 @@
-import {Card, Input, Upload} from 'antd';
-import React, { useState } from 'react';
-import ButtonCustom from './ButtonCustom';
-import Picker from 'emoji-picker-react';
+import {Input, Upload, Modal, Dropdown, Button } from 'antd';
+import React, { useState, useEffect } from 'react';
+import EmojiPickerCustom from './EmojiPickerCustom';
 import axios from 'axios';
-import {SmileOutlined, CloseCircleOutlined} from '@ant-design/icons'
+import {SmileOutlined, CloseCircleOutlined} from '@ant-design/icons';
+import ButtonCustom from './ButtonCustom';
 const { TextArea } = Input;
-
-    
-const cardStyle = { 
-    width: 400,
-    boxShadow: '0 3px 10px rgb(0 0 0 / 0.2)',
-};
-
-const wrapCardStyle = {
-    position: 'absolute', 
-    top: '45%', left: '50%', 
-    transform: 'translate(-50%, -50%)', 
-}
 
 const buttonStyle = {
     border: 'none', 
@@ -26,26 +14,33 @@ const buttonStyle = {
     padding: '5px 10px'
 }
 
+const isMobileScreen = window.innerWidth < 800;
+
 const emojiButtonStyle = {
     position: 'absolute', 
-    right: '20px', top: '128px', 
+    right: isMobileScreen ? '25px' : '20px', 
+    top: isMobileScreen ? '145px' : '143px', 
     fontSize: '24px',
     borderRadius: '50%', 
 };
 
 
-const wrapEmojiChooseStyle = {
-    position: 'absolute',
-    right: '-228px',
-    top: '150px',
-}
-
-
-const UploadPostForm = () => {
+const UploadPostForm = (props) => {
     const [postImages, setPostImages] = useState([]);
     const [postContent, setPostContent] = useState('');
     const [showEmojiChoose, setShowEmojiChoose] = useState(false);
+    const {isModalVisible, handleOk, handleCancel} = props;
+    const [ text, setText ] = useState('')
+  
+    function handleOnEnter (text) {
+        console.log('enter', text)
+    }
 
+    const styleEmojiChoose = {
+        width: '250px',
+        height: showEmojiChoose ? '250px' : '0px', 
+        //zIndex: showEmojiChoose ? 2 : -1
+    }
 
     const handlePost = () => {
         let dataUpload = new FormData();
@@ -76,12 +71,13 @@ const UploadPostForm = () => {
         setPostContent(value.currentTarget.value);
     };
 
-    const onEmojiClick = (event, emojiObject) => {
+    const onEmojiClick = (emoji) => {
         setPostContent(prev => {
-            const newContents = prev + emojiObject.emoji;
+            const newContents = prev + emoji.native;
             
             return newContents;
         });
+        setShowEmojiChoose(false)
     };
 
     const handleShowEmojiChoose = () => {
@@ -89,50 +85,58 @@ const UploadPostForm = () => {
         setShowEmojiChoose(!showEmojiChoose);
     }
 
+    
     return (
-        <div style={wrapCardStyle}>
-            <Card size="small" 
-                title="Đăng ảnh mới" 
-                extra={
-                    <ButtonCustom 
-                        // Kiểm tra xem dữ liệu đã được điền vào thì mới mở nút đăng
-                        idDisabled={postImages.length !== 0 ? false : true}
-                        buttonStyle={buttonStyle} 
-                        handlePost={handlePost}
-                    />
-                } 
-                style={cardStyle}
+        <Modal 
+            title={<strong>Đăng ảnh mới</strong>} 
+            visible={isModalVisible} 
+            onOk={handlePost} 
+            okText={'Đăng'}
+            cancelText={'Huỷ'}
+            onCancel={handleCancel}
+            style={{zIndex: isModalVisible ? 2 : -1}}
+        >
+            <TextArea 
+                name='postContents'
+                style={{ width: '100%', height: '100px', resize: 'none'}} 
+                placeholder='Hãy nhập gì đó...'
+                value={postContent}
+                onChange={handlePostContent}
+            /> 
+
+            <Dropdown
+                trigger={['click']}
+                overlay={<EmojiPickerCustom 
+                    className='emojipicker'
+                    onEmojiSelect={onEmojiClick} 
+                    theme='light'
+                />}
+                placement='bottomRight'
             >
-                <TextArea 
-                    name='postContents'
-                    style={{ width: '100%', height: '100px', resize: 'none'}} 
-                    placeholder='Hãy nhập gì đó...'
-                    value={postContent}
-                    onChange={handlePostContent}
-                />
-                <SmileOutlined style={emojiButtonStyle} onClick={handleShowEmojiChoose} />
-                <p style={{margin: '0px', marginBottom: '8px', marginTop: '16px'}}>Chọn ảnh</p>
-                <Upload
-                    accept='.jpg,.jpeg,.png'
-                    showUploadList={{showPreviewIcon: false}}
-                    name='postImages'
-                    listType="picture-card"
-                    fileList={postImages}
-                    onChange={handlePostImages}
-                    beforeUpload={() => false}
-                >
-                    {postImages.length < 5 && '+ Upload'}
-                </Upload>
-            </Card>
-            {
-                showEmojiChoose 
-                    && 
-                <div style={wrapEmojiChooseStyle}>
-                    <CloseCircleOutlined style={{position: 'inherit', right: '-5px', top: '-5px', zIndex: '1', fontSize: '16px'}} onClick={handleShowEmojiChoose} />
-                    <Picker pickerStyle={{width: '240px', height: '300px'}} disableSearchBar={true} onEmojiClick={onEmojiClick}/>
-                </div>
-            }
-        </div>
+                <Button 
+                    className='emoji-button'
+                    shape='circle' 
+                    style={emojiButtonStyle} 
+                    icon={<SmileOutlined 
+                    width={32} height={32} />} 
+                /> 
+            </Dropdown>   
+            
+            <p style={{margin: '0px', marginBottom: '8px', marginTop: '16px'}}>Chọn ảnh</p>
+            <Upload
+                accept='.jpg,.jpeg,.png'
+                showUploadList={{showPreviewIcon: false}}
+                name='postImages'
+                listType="picture-card"
+                fileList={postImages}
+                onChange={handlePostImages}
+                beforeUpload={() => false}
+                
+            >
+                {postImages.length < 5 && '+ Upload'}
+            </Upload>
+        </Modal>
+            
         
     );
 };
