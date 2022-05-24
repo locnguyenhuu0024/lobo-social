@@ -1,18 +1,12 @@
-import {Input, Upload, Modal, Dropdown, Button } from 'antd';
+import {Input, Upload, Modal, Dropdown, Button, message } from 'antd';
 import React, { useState, useEffect } from 'react';
 import EmojiPickerCustom from './EmojiPickerCustom';
-import axios from 'axios';
-import {SmileOutlined, CloseCircleOutlined} from '@ant-design/icons';
-import ButtonCustom from './ButtonCustom';
+import { useSelector, useDispatch } from 'react-redux';
+import {SmileOutlined} from '@ant-design/icons';
+import { uploadPost } from '../redux/apiRequest';
+import { useNavigate } from 'react-router-dom';
 const { TextArea } = Input;
 
-const buttonStyle = {
-    border: 'none', 
-    borderRadius: '5px',
-    fontWeight: 'bold',
-    color: 'black',
-    padding: '5px 10px'
-}
 
 const isMobileScreen = window.innerWidth < 800;
 
@@ -21,51 +15,65 @@ const emojiButtonStyle = {
     right: isMobileScreen ? '25px' : '20px', 
     top: isMobileScreen ? '145px' : '143px', 
     fontSize: '24px',
-    borderRadius: '50%', 
+    borderRadius: '50% !important', 
+    backgroundColor: 'transparent !important'
 };
 
 
 const UploadPostForm = (props) => {
+    
+    let {isModalVisible, handleCancel} = props;
+
     const [postImages, setPostImages] = useState([]);
     const [postContent, setPostContent] = useState('');
-    const [showEmojiChoose, setShowEmojiChoose] = useState(false);
-    const {isModalVisible, handleOk, handleCancel} = props;
-    const [ text, setText ] = useState('')
-  
-    function handleOnEnter (text) {
-        console.log('enter', text)
-    }
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-    const styleEmojiChoose = {
-        width: '250px',
-        height: showEmojiChoose ? '250px' : '0px', 
-        //zIndex: showEmojiChoose ? 2 : -1
+
+    const currentUser = useSelector(state => state.auth.login.currentUser);
+    const isFetchingUpload = useSelector(state => state.post.uploadPost.isFetching);
+
+    function checkIsImage(file) {
+        const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+        if (!isJpgOrPng) {
+            message.error('Bạn chỉ được đăng ảnh định dạng JPG/PNG!');
+            return false;
+        }
+
+        // Chia 1024 2 lần để tính ra số MB
+        // do file gốc được định dạng dung lượng là KB
+        // 1MB = 1024KB * 1024KB
+        const isLt2M = file.size / 1024 / 1024 < 4;
+        if (!isLt2M) {
+            message.error('Dung lượng ảnh không được lớn hơn 4MB!');
+            return false;
+        }
+        // return isJpgOrPng && isLt2M;
+        return true;
     }
 
     const handlePost = () => {
         let dataUpload = new FormData();
         dataUpload.append('postContents', postContent);
+        dataUpload.append('authorID', currentUser.user._id);
         for (const key of Object.keys(postImages)) {
-            dataUpload.append('postImages', postImages[key].originFileObj)
+            dataUpload.append('postImages', postImages[key].originFileObj);
         }
 
-        const url = 'http://localhost:4000/post/';
-        const config = {
-            headers: {
-                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNWNkZjRkMzMzNWJmNjI4MGIxNGFmOCIsImFkbWluIjpmYWxzZSwidXNlcm5hbWUiOiJuZ3V5ZW5sb2MyNDA5IiwiaWF0IjoxNjUwNDUxMzc1LCJleHAiOjE2NTA0NTg1NzUsImF1ZCI6ImxvYm8uc29jaWFsLm9mZmljaWFsQGdtYWlsLmNvbSIsInN1YiI6InVzZXIifQ.vgA9hVRNoxjEcBU46V6LFbS56hCRMWi7y9RorV7knpQ',
-                'content-type': 'multipart/form-data'
-            }
-        }
-
-        axios.post(url, dataUpload, config)
-        .then(respone => {})
-        .catch(err => {})
-        setPostContent('');
-        setPostImages([]);
+        const url = 'http://localhost:4000/api/v1/post/';
+        
+        uploadPost(url, currentUser, dataUpload, dispatch, navigate);
+        setTimeout(() => {
+            setPostContent('');
+            setPostImages([]);
+            handleCancel()
+        }, 2000);
     }
 
     const handlePostImages = ({ fileList: newFileList }) => {
-        setPostImages(newFileList);
+        const filteredImages 
+            = newFileList.filter(image => checkIsImage(image));
+        setPostImages(filteredImages);
     };
     const handlePostContent = (value) => {
         setPostContent(value.currentTarget.value);
@@ -77,24 +85,22 @@ const UploadPostForm = (props) => {
             
             return newContents;
         });
-        setShowEmojiChoose(false)
     };
 
-    const handleShowEmojiChoose = () => {
-        
-        setShowEmojiChoose(!showEmojiChoose);
-    }
-
+    const isUnFillPost = postImages.length <= 0 || !postContent;
     
     return (
         <Modal 
             title={<strong>Đăng ảnh mới</strong>} 
             visible={isModalVisible} 
-            onOk={handlePost} 
-            okText={'Đăng'}
-            cancelText={'Huỷ'}
-            onCancel={handleCancel}
             style={{zIndex: isModalVisible ? 2 : -1}}
+            onCancel={handleCancel}
+            footer={<Button 
+                type='primary' 
+                onClick={handlePost} 
+                disabled={isUnFillPost}
+                loading={isFetchingUpload}
+                >Đăng</Button>}
         >
             <TextArea 
                 name='postContents'
@@ -119,6 +125,7 @@ const UploadPostForm = (props) => {
                     style={emojiButtonStyle} 
                     icon={<SmileOutlined 
                     width={32} height={32} />} 
+
                 /> 
             </Dropdown>   
             
@@ -131,9 +138,8 @@ const UploadPostForm = (props) => {
                 fileList={postImages}
                 onChange={handlePostImages}
                 beforeUpload={() => false}
-                
             >
-                {postImages.length < 5 && '+ Upload'}
+                {postImages.length < 5 && '+ Chọn hình'}
             </Upload>
         </Modal>
             

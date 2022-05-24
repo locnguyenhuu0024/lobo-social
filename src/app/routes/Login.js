@@ -1,24 +1,28 @@
 import React, {useEffect} from 'react';
-import { Divider} from 'antd';
+import { Divider, message } from 'antd';
 import LoginForm from '../components/LoginForm';
 import { loginUser } from '../redux/apiRequest';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 function Login(props){
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const currentUser = useSelector(state => state.auth.login.currentUser);
+    const isDesktop = window.innerWidth > 790;
 
     useEffect(() => {
         document.title=props.title
-        // if(!currentUser){
-        //     message.info('Bạn chưa đăng nhập')
-        //     return navigate('/login');
-        // }
-    });
+        if(!currentUser){
+            message.info('Bạn chưa đăng nhập')
+            return navigate('/login');
+        }else{
+            return navigate('/');
+        }
+    }, []);
 
     function handleFinish(values){
-        const url = 'http://localhost:4000/auth/login';
+        const url = 'http://localhost:4000/api/v1/auth/login';
 
         loginUser(url, values, dispatch, navigate);
     }
@@ -28,7 +32,7 @@ function Login(props){
             <div className='wrap-form'>
                 <div className='left-side'>
                     <div className='logo mb-4'>
-                        <a href='/'> <img src={window.innerWidth > 890 ? '/logo512-white.png' : '/logo512.png'} alt='logo'/> </a>
+                        <a href='/'> <img src={isDesktop ? '/logo512-white.png' : '/logo512.png'} alt='logo'/> </a>
                     </div>
 
                     <div>

@@ -2,18 +2,39 @@
 // HEADER
 .header{
     background-color: #ffffff !important;
+
+    .ant-btn.ant-btn-circle{
+        height: 32px !important;
+        min-width: 32px !important;
+        background-color: transparent !important;
+        border: none !important;
+    
+        span{
+            color: black;
+            font-size: 24px !important;
+        }
+    }
+    .ant-btn.ant-btn-link span{
+        font-size: 14px !important;
+    }
+}
+
+// Home :))))
+.wrap-home{
+    position: relative;
+    width: inherit;
 }
 
 
 // Layout
 .wrap-center{
     display: flex;
+    flex-direction: column;
     width: 100%;
     height: 100vh;
 
     justify-content: center;
     align-items: center;
-    flex-direction: column;
 
     position: relative;
 }
@@ -25,7 +46,6 @@
     top: 50%;
     transform: translate(-50%, -50%);
 }
-
 
 
 .wrap-form{
@@ -69,7 +89,10 @@
     width: 148px;
 }
 
-
+.wrap-image{
+    display: flex !important;
+    height: 100%;
+}
 
 @media only screen and (min-width: 890px) {
     .wrap-form{
@@ -91,8 +114,29 @@
         max-width: 674px;
         border-radius: 20px;
         padding: 90px 70px;
+
+        .ant-form-item-explain-error{
+            text-align: end;
+        }
     }
     .nav-buttons{
         width: 202px;
+    }
+
+    .header{
+        
+        .ant-btn.ant-btn-circle{
+            height: 40px !important;
+            min-width: 40px !important;
+        }
+    }
+
+    .wrap-home{
+        
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-start;
+
     }
 }

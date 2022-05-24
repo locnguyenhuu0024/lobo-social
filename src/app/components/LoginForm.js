@@ -1,9 +1,11 @@
 import { Form, Input, Button } from 'antd';
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom';
+import {useSelector} from 'react-redux';
 
 
 function LoginForm(props){
     const {handleFinish, handleFinishFailed} = props;
+    const progressLogin = useSelector(state => state.auth.login.isFetching);
 
     /* eslint-disable no-template-curly-in-string */
     const validateMessages = {
@@ -54,7 +56,11 @@ function LoginForm(props){
             </Form.Item>
             
             <Form.Item>
-                <Button type="primary" htmlType="submit" style={{width: '100%'}} className='btn-black'>
+                <Button 
+                    loading={progressLogin}
+                    type="primary" htmlType="submit" 
+                    style={{width: '100%'}} className='btn-black'
+                >
                     Đăng nhập
                 </Button>
             </Form.Item>

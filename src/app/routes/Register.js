@@ -16,18 +16,14 @@ function Register(props){
     const dispatch = useDispatch();
 
     useEffect(() => {
-        document.title=props.title
-        // if(!currentUser){
-        //     message.info('Bạn chưa đăng nhập')
-        //     return navigate('/login');
-        // }
+        document.title=props.title;
     });
 
     const isRegSuccess = useSelector(state => state.auth.register.success);
     const isError = useSelector(state => state.auth.register.error);
 
     function handleFinish(values){
-        const url = 'http://localhost:4000/auth/register';
+        const url = 'http://localhost:4000/api/v1/auth/register';
         registerUser(url, values, dispatch, navigate);
     }
 
