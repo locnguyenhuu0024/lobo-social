@@ -1094,6 +1094,9 @@ textarea.ant-input::-webkit-scrollbar-thumb {
   .profile .float-comment {
     display: none;
   }
+  .profile .float-option {
+    right: 16px;
+  }
   .profile .float-option button .three-dot {
     padding: 16px 8px;
   }
@@ -1102,6 +1105,10 @@ textarea.ant-input::-webkit-scrollbar-thumb {
     width: 5px;
     border-radius: 50%;
     background-color: white;
+  }
+
+  .float-count-image {
+    left: 16px;
   }
 }
 

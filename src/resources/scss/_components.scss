@@ -929,6 +929,7 @@
         }
 
         .float-option{
+            right: 16px;
             button{
                 .three-dot{
                     padding: 16px 8px;
@@ -943,6 +944,10 @@
 
             }
         }
+    }
+
+    .float-count-image{
+        left: 16px;
     }
 }
 

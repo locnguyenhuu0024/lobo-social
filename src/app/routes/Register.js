@@ -55,7 +55,17 @@ function Register(props){
             <div className='wrap-form'>
                 <div className='left-side'>
                     <div className='logo mb-4'>
-                        <a href='/'> <img src={window.innerWidth > 890 ? '/logo512-white.png' : '/logo512.png'} alt='logo'/> </a>
+                        <a href='/'> 
+                        
+                            {/* <img src={
+                                window.innerWidth > 890 
+                                    ? '/logo512-white.png' 
+                                    : '/logo512.png'} 
+                                alt='logo'
+                            />  */}
+
+                            <img src='/logo.svg' alt='lobo' />
+                        </a>
                     </div>
 
                     <div>
