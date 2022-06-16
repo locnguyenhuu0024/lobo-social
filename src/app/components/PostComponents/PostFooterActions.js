@@ -15,7 +15,7 @@ function PostFooterActions(props){
     const navigate = useNavigate();
     const handleLove = () => {
         setLove(!love);
-        const url = `http://localhost:4000/api/v1/post/love/${post._id}`;
+        const url = `http://localhost:4000/api/post/love/${post._id}`;
         lovePost(url, currentUser, dispatch, navigate);
     };
     const [love, setLove] = useState(() => {

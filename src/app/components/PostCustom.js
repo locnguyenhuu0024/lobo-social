@@ -13,15 +13,15 @@ import PostHeader from './PostComponents/PostHeader';
 import 
     FloatCarouselImages 
 from './PostComponents/FloatCarouselImage';
-import { 
-    disableBodyScroll, 
-    enableBodyScroll
-} from 'body-scroll-lock';
+// import { 
+//     disableBodyScroll, 
+//     enableBodyScroll
+// } from 'body-scroll-lock';
 
 
 
 function PostCustom(props){
-    const {post} = props;
+    const {post, isDetailPost} = props;
     const currentUser = useSelector(state => state.auth.login.currentUser);
     const [showComment, setShowComment] = useState(false);
     const [showImages, setShowImages] = useState(false);
@@ -31,24 +31,24 @@ function PostCustom(props){
     const handleShowComments = () => {
         setShowComment(!showComment);
         
-        const url = `http://localhost:4000/api/v1/comment/${post._id}`;
-        loadComments(url, currentUser, dispatch, navigate); 
+        const path = `/api/comment/${post._id}`;
+        loadComments(path, currentUser, dispatch, navigate); 
     };
 
     const handleShowImages = () => {
         const body = document.body;
         if(showImages == false){
             setShowImages(true);
-            disableBodyScroll(body);
+            // disableBodyScroll(body);
         }else{
             setShowImages(false);
-            enableBodyScroll(body);
+            // enableBodyScroll(body);
         }
     }
 
     return (
         <>
-            <div className='post mt-3'>
+            <div className={`post mt-3 ${isDetailPost && 'detail-post'}`}>
                 <div className='post-header'>
                     <PostHeader post={post} />
                 </div>

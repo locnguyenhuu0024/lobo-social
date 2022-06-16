@@ -35,7 +35,9 @@ const authSlice = createSlice({
         registerSuccess: (state) => {
             state.register.isFetching = false;
             state.register.error = false;
-            state.register.success = true
+            state.register.success = true;
+
+            setTimeout(() => {state.register.success = false;}, 10000);
         },
         registerFailed: (state) => {
             state.register.isFetching = false;
@@ -57,6 +59,21 @@ const authSlice = createSlice({
             state.login.isFetching = false;
             state.login.error = true;
         },
+
+        
+        // Update
+        updateCurrentUser: (state, action) => {
+            if(state.login.currentUser.user._id == action.payload._id){
+                state.login.currentUser.user = action.payload;
+            }
+        },
+
+        // Clear After Registered
+        registerReset: (state) => {
+            state.register.isFetching = false;
+            state.register.error = false;
+            state.register.success = false;
+        },
     }
 })
 
@@ -71,6 +88,9 @@ export const {
 
     logoutStart,
     logoutSuccess,
-    logoutFailed
+    logoutFailed,
+
+    updateCurrentUser,
+    registerReset,
 } = authSlice.actions;
 export default authSlice.reducer;

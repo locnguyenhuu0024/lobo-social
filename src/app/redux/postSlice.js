@@ -32,6 +32,11 @@ const postSlice = createSlice({
         loadComments: {
             isFetching: false,
             error: false
+        },
+        loadExplore: {
+            isFetching: false,
+            list: [],
+            error: false
         }
     },
     reducers:{
@@ -129,7 +134,7 @@ const postSlice = createSlice({
                     = state.getPosts.listPosts[idPost].comments.findIndex(
                         comment => comment._id === action.payload?._id
                     );
-                console.log(idComment);
+                //console.log(idComment);
                 if(idComment > -1){
                     state.getPosts.listPosts[idPost].comments[idComment] = action.payload;
                 }else{
@@ -141,6 +146,22 @@ const postSlice = createSlice({
             state.pushComment.isFetching = false;
             state.pushComment.error = true;
             state.pushComment.success = false;
+        },
+
+        loadExploreStart: (state) => {
+            state.loadExplore.isFetching = true;
+            state.loadExplore.list = [];
+            state.loadExplore.error = false;
+        },
+        loadExploreSuccess: (state, action) => {
+            state.loadExplore.isFetching = false;
+            state.loadExplore.list = action.payload;
+            state.loadExplore.error = false;
+        },
+        loadExploreFailed: (state) => {
+            state.loadExplore.isFetching = false;
+            state.loadExplore.list = [];
+            state.loadExplore.error = true;
         },
 
         // Dọn sạch post sau khi đăng xuất
@@ -157,6 +178,16 @@ const postSlice = createSlice({
             state.getPosts.listPosts = state.getPosts.listPosts.sort((a, b) => {
                 return new Date(b.createdAt) - new Date(a.createdAt);
             })
+        },
+
+        // Xoá post đƯợc chỉ định
+        removePost: (state, action) => {
+            state.getPosts.listPosts = state.getPosts.listPosts.filter(post => {
+                console.log(post._id);
+                console.log(action.payload);
+                return post._id !== action.payload
+            });
+            console.log(state.getPosts.listPosts);
         }
     }
 });
@@ -182,7 +213,12 @@ export const {
     pushCommentSuccess,
     pushCommentFailed,
 
+    loadExploreStart,
+    loadExploreSuccess,
+    loadExploreFailed,
+
     clearPost,
     updateListPost,
+    removePost
 } = postSlice.actions;
 export default postSlice.reducer;

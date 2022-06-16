@@ -60,9 +60,9 @@ const UploadPostForm = (props) => {
             dataUpload.append('postImages', postImages[key].originFileObj);
         }
 
-        const url = 'http://localhost:4000/api/v1/post/';
+        const path = '/api/post/';
         
-        uploadPost(url, currentUser, dataUpload, dispatch, navigate);
+        uploadPost(path, currentUser, dataUpload, dispatch, navigate);
         setTimeout(() => {
             setPostContent('');
             setPostImages([]);

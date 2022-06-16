@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Comment, Avatar, Input, Button } from 'antd';
-import {SendOutlined} from '@ant-design/icons'
+import {SendOutlined} from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { pushComment } from '../redux/apiRequest';
+import CmtFormCustom from './CmtFormCustom';
 
 function CommentCustom(props){
   const { 
@@ -19,15 +20,18 @@ function CommentCustom(props){
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const currentUser = useSelector(state => state.auth.login.currentUser);
+  const inputCommentRef = useRef();
+  const commentRef = useRef(null);
 
-  const handlePushReplyComment = () => {
+  const handlePushReplyComment = (inCmt) => {
     let dataReply = new FormData();
-    dataReply.append('content', inputCmt);
+    // dataReply.append('content', inputCmt);
+    dataReply.append('content', inCmt);
     dataReply.append('authorID', currentUser.user._id);
     dataReply.append('postID', props.comment.postID);
 
-    const url = `http://localhost:4000/api/v1/comment/${props.comment._id}`;
-    pushComment(url, currentUser, dataReply, dispatch, navigate);
+    const path = `/api/comment/${props.comment._id}`;
+    pushComment(path, currentUser, dataReply, dispatch, navigate);
 
     setInputCmt('')
     setCmtForm(!cmtForm);
@@ -71,7 +75,9 @@ function CommentCustom(props){
             key="comment-nested-reply-to" 
             onClick={handleReplyTo}
           >Trả lời</span>
-          : <CmtForm />
+          : <CmtFormCustom 
+            handlePushComment={handlePushReplyComment}
+          />
         ]}
 
         author={

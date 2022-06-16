@@ -24,6 +24,29 @@ body{
 //     outline: none !important;
 //     border: none !important;
 // }
+
+/* width */
+::-webkit-scrollbar {
+    width: 2px;
+    border-radius: 2;
+}
+  
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+   
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+  
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+
+  
 .ant-form-item-explain-error{
     font-size: 10px; 
 }
@@ -54,17 +77,23 @@ body{
 .ant-row.ant-form-item{
     position: relative;
 }
-.ant-col.ant-form-item-label{
-    position: absolute;
-    top: -22px;
-    left: 18px;
-    z-index: 9999 !important;
-    padding: 0px !important;
+// .ant-col.ant-form-item-label{
+//     position: absolute;
+//     top: -22px;
+//     left: 18px;
+//     z-index: 9999 !important;
+//     padding: 0px !important;
 
-    background-color: white;
-    padding: 0px 8px !important;
-    font-weight: 700;
+//     background-color: white;
+//     padding: 0px 8px !important;
+//     font-weight: 700;
+// }
+
+.ant-input{
+    padding: 8px 16px !important;
+    border-radius: 10px !important;
 }
+
 label.ant-form-item-required::before{
     font-size: 0px !important;
 }

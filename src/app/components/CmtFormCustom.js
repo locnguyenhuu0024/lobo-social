@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Input,Button, Dropdown, Form, } from 'antd';
 import { SmileOutlined } from '@ant-design/icons'
 import EmojiPickerCustom from './EmojiPickerCustom';
@@ -7,14 +7,31 @@ import EmojiPickerCustom from './EmojiPickerCustom';
 
 function CmtFormCustom(props){
     const {
-        commentRef, idPost, 
-        inputCommentRef, 
-        handlePushComment,
+        idPost, 
+        handlePushComment, showComment
     } = props;
-
     const [form] = Form.useForm();
-
     const [inputCmt, setInputCmt] = useState(null);
+    const [currentCmtPost, setCurrentCmtPost] = useState(null)
+    const cmtFormRef = useRef();
+
+    useEffect(() => {
+        currentCmtPost == null || currentCmtPost == idPost
+        ? setCurrentCmtPost(idPost)
+        : setCurrentCmtPost(null)
+    }, [])
+
+    useEffect(() => {
+        //Focus vào ô nhập bình luận
+        document.getElementById(`comment-${idPost}`).focus({cursor: 'start'});
+
+        // Cuộn tới khung nhập comment
+        document.getElementById(`comment-form-post-${idPost}`).scrollIntoView({
+            behavior: 'smooth', 
+            block: 'center', 
+            inline: 'center'
+        });
+    }, []);
     const handlePressEnter = (e) => {
         handlePushComment(inputCmt);
         //setInputCmt(null);
@@ -33,7 +50,6 @@ function CmtFormCustom(props){
 
     return (
         <div 
-            ref={commentRef}
             id={`comment-form-post-${idPost}`} 
             className={`comment-form`}
         >
@@ -67,25 +83,16 @@ function CmtFormCustom(props){
                     name="comment"
                 >
                     <Input.TextArea 
-                        ref={inputCommentRef} 
-                        id='comment' 
+                        id={`comment-${idPost}`} 
+                        ref={cmtFormRef}
                         placeholder='Nhập bình luận...'
                         onChange={onchange}
                         value={inputCmt}
-                        autoSize={{minRows: 1, maxRows: 4}}
+                        autoSize={{minRows: 1, maxRows: 2}}
                         onPressEnter={handlePressEnter}
                     />
                 </Form.Item>
             </Form>
-
-            {/* <Button 
-                key={`comment-button-${idPost}`}
-                className='btn-black btn-send-comment' 
-                onClick={handleInputCmt}
-                icon={<SendOutlined 
-                    style={{color: 'white'}} 
-                />} 
-            /> */}
         </div>
     );
 }

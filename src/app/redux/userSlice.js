@@ -12,6 +12,16 @@ const userSlice = createSlice({
             isFetching: false,
             error: false,
             user: null
+        },
+        follow: {
+            isFetching: false,
+            error: false,
+            success: false
+        },
+        block: {
+            isFetching: false,
+            error: false,
+            success: false
         }
     },
     reducers:{
@@ -45,6 +55,43 @@ const userSlice = createSlice({
             state.loadUser.error = true;
             state.loadUser.user = null;
         },
+
+        followReset: (state) => {
+            state.follow.isFetching = false;
+            state.follow.error = false;
+            state.follow.success = false;
+        },
+        followStart: (state) => {
+            state.follow.isFetching = true;
+            state.follow.error = false;
+            state.follow.success = false;
+        },
+        followSuccess: (state) => {
+            state.follow.isFetching = false;
+            state.follow.error = false;
+            state.follow.success = true;
+        },
+        followFailed: (state) => {
+            state.follow.isFetching = false;
+            state.follow.error = true;
+            state.follow.success = false;
+        },
+
+        blockStart: (state) => {
+            state.follow.isFetching = true;
+            state.follow.error = false;
+            state.follow.success = false;
+        },
+        blockSuccess: (state) => {
+            state.follow.isFetching = false;
+            state.follow.error = false;
+            state.follow.success = true;
+        },
+        blockFailed: (state) => {
+            state.follow.isFetching = false;
+            state.follow.error = true;
+            state.follow.success = false;
+        },
     }
 });
 
@@ -57,6 +104,13 @@ export const {
     loadUserSuccess,
     loadUserFailed,
 
+    followReset,
+    followStart,
+    followSuccess,
+    followFailed,
     
+    blockStart,
+    blockSuccess,
+    blockFailed,
 } = userSlice.actions;
 export default userSlice.reducer;

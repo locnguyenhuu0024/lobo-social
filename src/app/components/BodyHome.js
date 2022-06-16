@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
-import { List, Button, Affix } from 'antd';
+import { List, Button, Affix, Space } from 'antd';
 import PostCustom from './PostCustom';
 import UploadPostForm from './UploadPostForm';
 import { useSelector } from 'react-redux';
 import CustomSider from './CustomSider';
 import SkeletonPostCustom from './SkeletonPostCustom';
+import { motion } from 'framer-motion';
+import WaitingScreenCustom from './WaitingScreenCustom';
 
 function BodyHome(props){
     const {posts} = props;
@@ -43,7 +45,11 @@ function BodyHome(props){
                 <div className='add-image-component'>
                     <p style={{width: 'fit-content'}}>Thêm ảnh mới</p>
                     <Button onClick={showModal}>
-                        <img src='/images/add-image.png' alt='btn add image' width={23} height={23} />
+                        <img 
+                            src='/images/add-image.png' 
+                            alt='btn add image' 
+                            width={23} height={23} 
+                        />
                     </Button>
                 </div>
                 
@@ -51,7 +57,27 @@ function BodyHome(props){
                     isDoneLoading === true      // Nếu đang load thì load
                     ? <SkeletonPostCustom />    // Load thì cho người ta biết mình đang load
                     : posts.length <= 0         // Load xong thì so sánh xem có post nào không
-                    ? <h2>Hãy đăng gì đó</h2>   // Không thì ....
+                    ? <div
+                        style={{
+                            width: '100%',
+                            height: '500px',
+                            position: 'relative'
+                        }}
+                    >
+                        <div 
+                            className='center'
+                            style={{
+                                width: '100%',
+                                height: '500px',
+                            }}
+                        >
+                            <WaitingScreenCustom 
+                                sizeIcon='64px'
+                                height='100%'
+                                bgColor='none'
+                            />
+                        </div>
+                    </div>
                     : <List                     // Có post thì in ra
                         dataSource={posts}
                         renderItem={
@@ -61,7 +87,11 @@ function BodyHome(props){
                         }
                     />
                 }
-                <UploadPostForm isModalVisible={isModalVisible} handleOk={handleOk} handleCancel={handleCancel} />
+                <UploadPostForm 
+                    isModalVisible={isModalVisible} 
+                    handleOk={handleOk} 
+                    handleCancel={handleCancel} 
+                />
             </div>
         </div>
     )

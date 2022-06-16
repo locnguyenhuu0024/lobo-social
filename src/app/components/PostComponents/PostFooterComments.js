@@ -2,7 +2,7 @@ import { useRef, useEffect } from 'react';
 import {
     Button,
     List, message, 
-    Skeleton, Divider
+    Skeleton, Divider, Affix
 } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { pushComment } from '../../redux/apiRequest';
@@ -15,21 +15,15 @@ function PostFooterComments(props){
         handleShowComments, 
         currentUser, 
         showComment,
-        post,
+        post, offsetCmt
     } = props;
     const isLoadingCmt = useSelector(
         state => state.post.loadComments.isFetching
     );
-    const inputCommentRef = useRef();
-    const commentRef = useRef(null);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     
-    useEffect(() => {
-        // Focus vào ô nhập bình luận
-        showComment && inputCommentRef.current.focus({cursor: 'start'});  
-
-    }, [showComment]);
+    
     
     const handlePushComment = (inputCmt) => {
         if(inputCmt){
@@ -38,32 +32,18 @@ function PostFooterComments(props){
             data.append('authorID', currentUser.user._id);
             data.append('postID', post._id);
     
-            const url = 'http://localhost:4000/api/v1/comment/';
+            const url = 'http://localhost:4000/api/comment/';
             pushComment(url, currentUser, data, dispatch, navigate);
         }else{
             message.warn('Vui lòng nhập bình luận!');
         }
     }
 
-    const handleScrollToComment = () => {
-        setTimeout(function () {
-            // Cuộn tới khung nhập comment
-            commentRef.current.scrollIntoView({
-                behavior: 'smooth', 
-                block: 'center', 
-                inline: 'center'
-            });
-            
-        }, 100);
-        
-        // Focus vào ô nhập bình luận
-        inputCommentRef.current.focus({
-            cursor: 'start'
-        });
-    };
-
     return (
-        <div className='post-footer__comments mt-2'>
+        <div 
+            className='post-footer__comments mt-2'
+            key={post._id}
+        >
             {
                 // khi state showComments chưa được kích hoạt
                 showComment === false
@@ -92,7 +72,10 @@ function PostFooterComments(props){
                             post.comments.length <= 0
                             ? <div 
                                 className='mt-2' 
-                                style={{textAlign: 'center'}}
+                                style={{
+                                    textAlign: 'center',
+                                    fontSize: 12
+                                }}
                             >
                                 Chưa có bình luận nào để hiển thị.
                             </div>
@@ -103,9 +86,7 @@ function PostFooterComments(props){
                                 renderItem={comment => (
                                     <CommentCustom 
                                         comment={comment}
-                                        commentRef={commentRef}
                                         id={post._id}
-                                        inputCommentRef={inputCommentRef}
                                         handlePushComment = {handlePushComment}
                                     ></CommentCustom>
                                 )}
@@ -113,16 +94,10 @@ function PostFooterComments(props){
                         }
                     </Skeleton>
                     <CmtFormCustom  
-                        commentRef={commentRef}
                         idPost={post._id}
-                        inputCommentRef={inputCommentRef}
                         handlePushComment = {handlePushComment}
+                        showComment={showComment}
                     />
-                    {/* <Button 
-                        key={`comment-form-post-${post.id}`}
-                        type='link' style={{color: 'grey'}}
-                        onClick={handleScrollToComment}
-                    >Thêm bình luận cho ảnh này.</Button> */}
                 </div>
             }
         </div>

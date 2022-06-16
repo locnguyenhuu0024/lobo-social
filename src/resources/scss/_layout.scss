@@ -3,6 +3,11 @@
 .header{
     background-color: #ffffff !important;
 
+    .logo{
+        width: 28px;
+        height: 28px;
+    }
+
     .ant-btn.ant-btn-circle{
         height: 32px !important;
         min-width: 32px !important;
@@ -86,12 +91,20 @@
     justify-content: space-between;
     align-items: center;
 
-    width: 148px;
+    // width: 148px;
+    width: fit-content;
 }
 
 .wrap-image{
     display: flex !important;
     height: 100%;
+}
+
+.slick-slide{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 @media only screen and (min-width: 890px) {
@@ -129,14 +142,17 @@
             height: 40px !important;
             min-width: 40px !important;
         }
+
+        .logo{
+            width: 40px;
+            height: 40px;
+        }
     }
 
     .wrap-home{
-        
         display: flex;
         flex-direction: row;
         justify-content: center;
         align-items: flex-start;
-
     }
 }

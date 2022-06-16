@@ -11,8 +11,10 @@ import {
     logoutSuccess, 
 
     registerFailed, 
+    registerReset, 
     registerStart, 
-    registerSuccess 
+    registerSuccess, 
+    updateCurrentUser
 } from "./authSlice";
 import {
     getPostsStart,
@@ -26,8 +28,6 @@ import {
     uploadPostStart,
     uploadPostSuccess,
     uploadPostFailed,
-    clearPost,
-    updateListPost,
 
     loadCommentsFailed, 
     loadCommentsStart, 
@@ -35,17 +35,48 @@ import {
     
     pushCommentFailed, 
     pushCommentStart, 
-    pushCommentSuccess
+    pushCommentSuccess,
+    
+    clearPost,
+    updateListPost,
+    removePost
 } from './postSlice';
-import { loadFollowingFailed, loadFollowingStart, loadFollowingSuccess, loadUserFailed, loadUserStart, loadUserSuccess } from "./userSlice";
+import { 
+    followFailed, 
+    followStart, 
+    followSuccess, 
+    
+    loadFollowingFailed, 
+    loadFollowingStart, 
+    loadFollowingSuccess, 
+    
+    loadUserFailed, 
+    loadUserStart, 
+    loadUserSuccess,
 
+    blockStart,
+    blockSuccess,
+    blockFailed, } from "./userSlice";
+
+import { loadNotifyFailed, loadNotifyStart, loadNotifySuccess } from "./notifySlice";
+
+const host = 'http://lobosocial.me';
+const config = {
+    headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
+    }
+};
 
 const refreshToken = async (dispatch, navigate) => {
     try {
         const res = 
-            await axios.put('http://localhost:4000/api/v1/auth/refresh-token/', '', {
+            await axios.put(`${host}/api/v1/auth/refresh-token/`, '', {
                 withCredentials: true,
-                
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
+                }
             });
             return res.data;
     } catch (error) {
@@ -88,10 +119,39 @@ const axiosJWT = (currentUser, dispatch, navigate) => {
 }
 
 // AUTH
-export const loginUser = async (url, user, dispatch, navigate) => {
+export const loginUser = async (path, user, dispatch, navigate) => {
     dispatch(loginStart());
     try {
-        const res = await axios.post(url, user, { withCredentials: true });
+        const res = await axios.post(host + '' + path, user, { 
+            withCredentials: true,
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
+            }
+        });
+
+        setTimeout(() => {
+            dispatch(loginSuccess(res.data));
+            navigate('/');
+        }, 2000);
+    } catch (error) {
+        setTimeout(() => {
+            dispatch(loginFailed());
+            message.warning(error.response.data)
+        }, 2000);
+    }
+}
+
+export const loginWithGoogle = async (path, user, dispatch, navigate) => {
+    dispatch(loginStart());
+    try {
+        const res = await axios.post(host + '' + path, user, { 
+            withCredentials: true,
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
+            } 
+        });
 
         setTimeout(() => {
             dispatch(loginSuccess(res.data));
@@ -104,15 +164,20 @@ export const loginUser = async (url, user, dispatch, navigate) => {
     }
 }
 
-export const logoutUser = async (url, currentUser, dispatch, navigate) => {
+export const logoutUser = async (path, currentUser, dispatch, navigate) => {
     dispatch(logoutStart());
     try {
-        await axiosJWT(currentUser, dispatch, navigate).post(url, {}, {
-            headers: {
-                'Authorization': 
-                    `Bearer ${currentUser.accessToken}`,
+        await axiosJWT(currentUser, dispatch, navigate).post(
+            host + '' + path, {}, 
+            {
+                headers: {
+                    'Authorization': 
+                        `Bearer ${currentUser.accessToken}`,
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
+                }
             }
-        });
+        );
 
         setTimeout(() => {
             dispatch(clearPost());
@@ -126,44 +191,60 @@ export const logoutUser = async (url, currentUser, dispatch, navigate) => {
     }
 }
 
-export const registerUser = async (url, user, dispatch) => {
+export const registerUser = async (path, user, dispatch) => {
     dispatch(registerStart());
     try {
-        await axios.post(url, user);
+        const registered = await axios.post(host + '' + path, user, {
+            headers: {
+                'content-type': 'multipart/form-data',
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
+            }
+        });
         setTimeout(() => {
+            message.error(registered.data);
             dispatch(registerSuccess());
+
+            setTimeout(() => dispatch(registerReset()), 10000);
         }, 2000);
     } catch (error) {
         setTimeout(() => {
+            message.error(error.response.data)
             dispatch(registerFailed());
-        }, 2000);
+        }, 1000);
     }
 }
 
 // POST
-export const getPosts = async (url, currentUser, dispatch, navigate) => {
+export const getPosts = async (path, currentUser, dispatch, navigate) => {
     dispatch(getPostsStart());
     dispatch(clearPost());
     try {
-        const res = await axiosJWT(currentUser, dispatch, navigate).get(url, {
-            headers: {
-                'Authorization': 
-                    `Bearer ${currentUser.accessToken}`,
-                'Content-Type': 'application/json'
+        const res = await axiosJWT(currentUser, dispatch, navigate).get(
+            host + '' + path, 
+            {
+                headers: {
+                    'Authorization': 
+                        `Bearer ${currentUser.accessToken}`,
+                    'Content-Type': 'application/json'
+                }
             }
-        });
+        );
         //console.log(res.data);
         dispatch(getPostsSuccess(res.data));
     } catch (error) {
+        message.error(error.response.data)
         dispatch(getPostsFailed());
     }
 }
 
-export const lovePost = async (url, currentUser, dispatch, navigate) => {
+export const lovePost = async (path, currentUser, dispatch, navigate) => {
     dispatch(lovePostStart());
     try {
         const newPost = await axiosJWT(currentUser, dispatch, navigate)
-        .put(url, {}, {
+        .put(
+            host + '' + path
+            , {}, {
             headers: {
                 'Authorization': 
                     `Bearer ${currentUser.accessToken}`,
@@ -175,16 +256,17 @@ export const lovePost = async (url, currentUser, dispatch, navigate) => {
     } catch (error) {
         //console.log(error.response.data);
         setTimeout(() => {
+            message.error(error.response.data)
             dispatch(lovePostFailed());
         }, 500);
     }
 }
 
-export const uploadPost = async (url, currentUser, post, dispatch, navigate) => {
+export const uploadPost = async (path, currentUser, post, dispatch, navigate) => {
     dispatch(uploadPostStart());
     try {
         const postUploaded = await axiosJWT(currentUser, dispatch, navigate)
-        .post(url, post, {
+        .post(host + '' + path, post, {
             headers: {
                 'Authorization': 
                     `Bearer ${currentUser.accessToken}`,
@@ -197,17 +279,18 @@ export const uploadPost = async (url, currentUser, post, dispatch, navigate) => 
         }, 2000);
     } catch (error) {
         setTimeout(() => {
+            message.error(error.response.data)
             dispatch(uploadPostFailed());
-        }, 2000);
+        }, 1000);
     }
 }
 
 // COMMENT
-export const pushComment = async (url, currentUser, comment, dispatch, navigate) => {
+export const pushComment = async (path, currentUser, comment, dispatch, navigate) => {
     dispatch(pushCommentStart());
     try {
         const commentPushed = await axiosJWT(currentUser, dispatch, navigate)
-        .post(url, comment, {
+        .post(host + '' + path, comment, {
             headers: {
                 'Authorization': 
                     `Bearer ${currentUser.accessToken}`,
@@ -226,11 +309,11 @@ export const pushComment = async (url, currentUser, comment, dispatch, navigate)
     }
 }
 
-export const loadComments = async (url, currentUser, dispatch, navigate) => {
+export const loadComments = async (path, currentUser, dispatch, navigate) => {
     dispatch(loadCommentsStart());
     try {
         const listComments = await axiosJWT(currentUser, dispatch, navigate)
-        .get(url, {
+        .get(host + '' + path, {
             headers: {
                 'Authorization': 
                     `Bearer ${currentUser.accessToken}`,
@@ -243,16 +326,16 @@ export const loadComments = async (url, currentUser, dispatch, navigate) => {
     } catch (error) {
         setTimeout(() => {
             dispatch(loadCommentsFailed());
-        }, 2000);
+        }, 1000);
     }
 }
 
 // USER
-export const loadFollowing = async (url, currentUser, dispatch, navigate) => {
+export const loadFollowing = async (path, currentUser, dispatch, navigate) => {
     dispatch(loadFollowingStart());
     try {
         const list = await axiosJWT(currentUser, dispatch, navigate)
-        .get(url, {
+        .get(host + '' + path, {
             headers: {
                 'Authorization': 
                     `Bearer ${currentUser.accessToken}`,
@@ -260,31 +343,104 @@ export const loadFollowing = async (url, currentUser, dispatch, navigate) => {
         });
         setTimeout(() => {
             dispatch(loadFollowingSuccess(list.data));
-        }, 800);
+        }, 400);
     } catch (error) {
         setTimeout(() => {
+            message.error(error.response.data)
             dispatch(loadFollowingFailed());
-        }, 2000);
+        }, 1000);
     }
 }
 
-export const loadUser = async (url, currentUser, dispatch, navigate) => {
+export const loadUser = async (path, currentUser, dispatch, navigate) => {
     dispatch(loadUserStart());
     try {
         const user = await axiosJWT(currentUser, dispatch, navigate)
-        .get(url, {
+        .get(host + '' + path, {
             headers: {
                 'Authorization': 
                     `Bearer ${currentUser.accessToken}`,
             }
         });
         setTimeout(() => {
-            console.log(user.data);
+            // console.log(user.data);
             dispatch(loadUserSuccess(user.data));
+
+            dispatch(updateCurrentUser(user.data));
         }, 800);
     } catch (error) {
         setTimeout(() => {
+            message.error(error.response.data)
             dispatch(loadUserFailed());
-        }, 2000);
+        }, 1000);
     }
+}
+
+export const loadNotify = async (path, currentUser, dispatch, navigate) => {
+    dispatch(loadNotifyStart());
+    try {
+        const notifies = await axiosJWT(currentUser, dispatch, navigate)
+        .get(host + '' + path, {
+            headers: {
+                'Authorization': 
+                    `Bearer ${currentUser.accessToken}`,
+            }
+        });
+        setTimeout(() => {
+            console.log(notifies.data);
+            dispatch(loadNotifySuccess(notifies.data));
+        }, 300);
+    } catch (error) {
+        setTimeout(() => {
+            dispatch(loadNotifyFailed());
+            message.error(error.response.data)
+        }, 1000);
+    }
+}
+
+export const follow = async (path, currentUser, dispatch, navigate) => {
+    dispatch(followStart());
+    try {
+        await axiosJWT(currentUser, dispatch, navigate)
+        .patch(host + '' + path, {}, {
+            headers: {
+                'Authorization': 
+                    `Bearer ${currentUser.accessToken}`,
+            }
+        });
+        setTimeout(() => {
+            dispatch(followSuccess());
+        }, 300);
+    } catch (error) {
+        setTimeout(() => {
+            dispatch(followFailed());
+        }, 1000);
+    }
+}
+
+export const block = async (path, currentUser, dispatch, navigate) => {
+    dispatch(blockStart());
+    try {
+        await axiosJWT(currentUser, dispatch, navigate)
+        .patch(host + '' + path, {}, {
+            headers: {
+                'Authorization': 
+                    `Bearer ${currentUser.accessToken}`,
+            }
+        });
+        setTimeout(() => {
+            // console.log(notifies.data);
+            dispatch(blockSuccess());
+            navigate('/');
+        }, 300);
+    } catch (error) {
+        setTimeout(() => {
+            message.error(error.response.data)
+            dispatch(blockFailed());
+        }, 1000);
+    }
+}
+
+export const removeP = (id, dispatch) => {
+    dispatch(removePost(id));
 }
