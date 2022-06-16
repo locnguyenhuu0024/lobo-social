@@ -73,10 +73,6 @@ const refreshToken = async (dispatch, navigate) => {
         const res = 
             await axios.put(`${host}/api/v1/auth/refresh-token/`, '', {
                 withCredentials: true,
-                headers: {
-                    "Access-Control-Allow-Origin": "*",
-                    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
-                }
             });
             return res.data;
     } catch (error) {
@@ -124,10 +120,6 @@ export const loginUser = async (path, user, dispatch, navigate) => {
     try {
         const res = await axios.post(host + '' + path, user, { 
             withCredentials: true,
-            headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
-            }
         });
 
         setTimeout(() => {
@@ -147,10 +139,6 @@ export const loginWithGoogle = async (path, user, dispatch, navigate) => {
     try {
         const res = await axios.post(host + '' + path, user, { 
             withCredentials: true,
-            headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
-            } 
         });
 
         setTimeout(() => {
@@ -173,8 +161,6 @@ export const logoutUser = async (path, currentUser, dispatch, navigate) => {
                 headers: {
                     'Authorization': 
                         `Bearer ${currentUser.accessToken}`,
-                    "Access-Control-Allow-Origin": "*",
-                    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
                 }
             }
         );
@@ -197,8 +183,6 @@ export const registerUser = async (path, user, dispatch) => {
         const registered = await axios.post(host + '' + path, user, {
             headers: {
                 'content-type': 'multipart/form-data',
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
             }
         });
         setTimeout(() => {
