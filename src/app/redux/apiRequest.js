@@ -195,6 +195,7 @@ export const registerUser = async (path, user, dispatch) => {
         setTimeout(() => {
             message.error(error.response.data)
             dispatch(registerFailed());
+            setTimeout(() => dispatch(registerReset()), 10000);
         }, 1000);
     }
 }
