@@ -39,7 +39,8 @@ import {
     
     clearPost,
     updateListPost,
-    removePost
+    removePost,
+    resetUploadPost
 } from './postSlice';
 import { 
     followFailed, 
@@ -261,11 +262,15 @@ export const uploadPost = async (path, currentUser, post, dispatch, navigate) =>
         setTimeout(() => {
             dispatch(uploadPostSuccess(postUploaded.data[0]));
             dispatch(updateListPost(postUploaded.data));
+
+            setTimeout(() => dispatch(resetUploadPost()), 5000);
         }, 2000);
     } catch (error) {
         setTimeout(() => {
             message.error(error.response.data)
             dispatch(uploadPostFailed());
+            
+            setTimeout(() => dispatch(resetUploadPost()), 5000);
         }, 1000);
     }
 }

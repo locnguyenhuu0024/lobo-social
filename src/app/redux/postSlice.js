@@ -188,6 +188,14 @@ const postSlice = createSlice({
                 return post._id !== action.payload
             });
             console.log(state.getPosts.listPosts);
+        },
+
+        // reset về mặc định
+        resetUploadPost: (state) => {
+            state.uploadPost.isFetching = false;
+            state.uploadPost.error = false;
+            state.uploadPost.success = false;
+            state.uploadPost.uploadedPost = null;
         }
     }
 });
@@ -219,6 +227,7 @@ export const {
 
     clearPost,
     updateListPost,
-    removePost
+    removePost,
+    resetUploadPost
 } = postSlice.actions;
 export default postSlice.reducer;
