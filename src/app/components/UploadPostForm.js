@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {SmileOutlined} from '@ant-design/icons';
 import { uploadPost } from '../redux/apiRequest';
 import { useNavigate } from 'react-router-dom';
+import { resetUploadPost } from '../redux/postSlice';
 const { TextArea } = Input;
 
 
@@ -66,7 +67,8 @@ const UploadPostForm = (props) => {
         setTimeout(() => {
             setPostContent('');
             setPostImages([]);
-            handleCancel()
+            handleCancel();
+            dispatch(resetUploadPost());
         }, 2000);
     }
 
