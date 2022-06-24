@@ -46,7 +46,7 @@ function PostHeader({post}){
     const [form] = Form.useForm(); 
 
     const handleDeletePost = () => {
-        const url = `http://localhost:4000/api/post/delete/${post._id}`;
+        const url = `https://lobosocial.me/api/post/delete/${post._id}`;
         axios.patch(url, {}, {
             headers: {
                 'Authorization': 
