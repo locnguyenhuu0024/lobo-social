@@ -99,7 +99,7 @@ function PostHeader({post}){
             pathImages,
             contents: e.contents
         };
-        const url = `http://localhost:4000/api/post/update/${post._id}`;
+        const url = `https://lobosocial.me/api/post/update/${post._id}`;
         axios.patch(url, data, {
             headers: {
                 'Authorization': 
