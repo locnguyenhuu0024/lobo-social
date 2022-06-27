@@ -124,23 +124,23 @@ function HeaderCustom(props){
         <Menu
             items={[
                 {
-                    label: <Button 
+                    label: <Link 
                         style={{width: '100%'}}
                         type='link' 
                         href={`/${currentUser.user._id}`} 
                     >
                         Thông tin cá nhân
-                    </Button>,
+                    </Link>,
                     key: '0',
                 },
                 {
-                    label: <Button 
+                    label: <Link 
                         style={{width: '100%'}}
                         type='link' 
                         href={`setting/${currentUser.user._id}`} 
                     >
                         Cài đặt
-                    </Button>,
+                    </Link>,
                     key: '1',
                 },
                 {
