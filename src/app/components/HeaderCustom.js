@@ -126,8 +126,7 @@ function HeaderCustom(props){
                 {
                     label: <Link 
                         style={{width: '100%'}}
-                        type='link' 
-                        href={`/${currentUser.user._id}`} 
+                        to={`/${currentUser.user._id}`} 
                     >
                         Thông tin cá nhân
                     </Link>,
@@ -136,8 +135,7 @@ function HeaderCustom(props){
                 {
                     label: <Link 
                         style={{width: '100%'}}
-                        type='link' 
-                        href={`setting/${currentUser.user._id}`} 
+                        to={`setting/${currentUser.user._id}`} 
                     >
                         Cài đặt
                     </Link>,
