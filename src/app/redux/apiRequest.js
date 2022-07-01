@@ -107,6 +107,7 @@ const axiosJWT = (currentUser, dispatch, navigate) => {
                 dispatch(loginSuccess(refreshUser));
                 config.headers['Authorization'] = `Bearer ${data.accessToken}`;
                 config.headers['content-type'] = 'multipart/form-data';
+                config.headers['Access-Control-Allow-Origin'] = '*';
             }
             return config;
         }, (err) => {return Promise.reject(err)}
