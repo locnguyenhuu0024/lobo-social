@@ -22,7 +22,6 @@ function Home(props){
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const currentUser = useSelector(state => state.auth.login.currentUser);
-    const posts = useSelector(state => state.post.getPosts.listPosts);
     enableBodyScroll('body')
     useEffect(() => {
         document.title = props.title;
@@ -52,7 +51,7 @@ function Home(props){
                                 <Route path="/search" element={<Search />} />
                                 <Route path="/post/:idPost" element={<Post />} />
                                 <Route path="/:id" element={<Profile />} />
-                                <Route path='/' element={<BodyHome posts={posts} />} />
+                                <Route path='/' element={<BodyHome />} />
                             </Routes>
                         </Content>
                     </Layout>

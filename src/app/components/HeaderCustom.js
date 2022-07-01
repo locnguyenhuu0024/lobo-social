@@ -52,7 +52,11 @@ function HeaderCustom(props){
     const [newNotify, setNewNotify] = useState(null);
     const [openNotifies, setOpenNotifies] = useState(false);
     const [openFollow, setOpenFollow] = useState(false);
-    const socket = io('http://lobosocial.me');
+    const socket = io(`${
+        process.env.PRODUCTION 
+        ? 'https://lobosocial.me' 
+        : 'http://localhost:4000'
+    }`);
     const loadedNotifies = useSelector((state) => state.notify.loadNotify.notifies);
     const isLoadingNotifies = useSelector((state) => state.notify.loadNotify.isFetching);
     const {list: listFollowing, isFetching: isLoadFollow} = useSelector(state => state.user.loadFollowing);
@@ -112,7 +116,7 @@ function HeaderCustom(props){
         // Bắt sự kiện mở bảng thông báo
         setNotifies(loadedNotifies);
         const idScrollTopNotify = setTimeout(() => {
-            document.querySelector('.board-notifies').scrollTop = 0;
+            // document.querySelector('.board-notifies').scrollTop = 0;
         }, 200);
         setNewNotify(null);
 
@@ -125,7 +129,12 @@ function HeaderCustom(props){
             items={[
                 {
                     label: <Link 
-                        style={{width: '100%'}}
+                        style={{
+                            width: 'fit-content',
+                            textDecoration: 'none',
+                            margin: 'auto',
+
+                        }}
                         to={`/${currentUser.user._id}`} 
                     >
                         Thông tin cá nhân
@@ -134,7 +143,12 @@ function HeaderCustom(props){
                 },
                 {
                     label: <Link 
-                        style={{width: '100%'}}
+                        style={{
+                            width: 'fit-content',
+                            textDecoration: 'none',
+                            margin: 'auto',
+
+                        }}
                         to={`setting/${currentUser.user._id}`} 
                     >
                         Cài đặt

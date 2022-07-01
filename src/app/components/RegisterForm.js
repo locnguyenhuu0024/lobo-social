@@ -99,7 +99,6 @@ function RegisterForm(props){
                         onModalOk={handleAfterCrop}
                     >
                         <Upload
-                            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                             accept='.jpg,.jpeg,.png'
                             showUploadList={{showPreviewIcon: false}}
                             name='userImage'

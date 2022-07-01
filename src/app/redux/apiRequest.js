@@ -61,7 +61,7 @@ import {
 
 import { loadNotifyFailed, loadNotifyStart, loadNotifySuccess } from "./notifySlice";
 
-const host = 'http://lobosocial.me';
+const host = process.env.PRODUCTION ? 'https://lobosocial.me' : 'http://localhost:4000';
 const config = {
     headers: {
         "Access-Control-Allow-Origin": "*",
@@ -288,7 +288,7 @@ export const pushComment = async (path, currentUser, comment, dispatch, navigate
             }
         });
         setTimeout(() => {
-            //console.log(commentPushed.data[0]);
+            // console.log(commentPushed.data[0]);
             dispatch(pushCommentSuccess(commentPushed.data[0]));
         }, 500);
     } catch (error) {

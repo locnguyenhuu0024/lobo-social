@@ -67,7 +67,11 @@ function Post(){
 
     useEffect(() => {
         if(post){
-            const url = `http://lobosocial.me/api/comment/${post._id}`;
+            const url = `${
+                process.env.PRODUCTION 
+                ? 'https://lobosocial.me' 
+                : 'http://localhost:4000'
+            }/api/comment/${post._id}`;
             axios.get(url, {
                 headers: {
                     'Authorization': 

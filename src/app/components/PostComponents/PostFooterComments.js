@@ -31,8 +31,8 @@ function PostFooterComments(props){
             data.append('content', inputCmt);
             data.append('authorID', currentUser.user._id);
             data.append('postID', post._id);
-    
-            const url = 'http://localhost:4000/api/comment/';
+            
+            const url = `/api/comment/`;
             pushComment(url, currentUser, data, dispatch, navigate);
         }else{
             message.warn('Vui lòng nhập bình luận!');

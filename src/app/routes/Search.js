@@ -46,7 +46,11 @@ function BodySearch(){
         // Làm chức năng search tại đây
         const idSearching = setTimeout(() => {
             const query = queryString.stringify({name: searching});
-            const url = `http://lobosocial.me/api/user/find/?${query}`;
+            const url = `${
+                process.env.PRODUCTION 
+                ? 'https://lobosocial.me' 
+                : 'http://localhost:4000'
+            }/api/user/find/?${query}`;
 
             searching
             &&
@@ -103,7 +107,11 @@ function BodySearch(){
             return newLoadings;
         });
 
-        const url = `http://lobosocial.me/api/user/follow/${id}`;
+        const url = `${
+            process.env.PRODUCTION 
+            ? 'https://lobosocial.me' 
+            : 'http://localhost:4000'
+        }/api/user/follow/${id}`;
         axios.patch(url, {}, {
             headers: {
                 'Authorization': 

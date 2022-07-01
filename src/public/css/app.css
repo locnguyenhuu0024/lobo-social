@@ -154,15 +154,12 @@ textarea.ant-input::-webkit-scrollbar-thumb {
   .ant-form-item-explain-error {
     font-size: 12px;
   }
-
   .ant-btn.ant-btn-link {
     font-size: 16px !important;
   }
-
   .show-for-desktop {
     display: block;
   }
-
   .show-for-mobile {
     display: none;
   }
@@ -272,7 +269,6 @@ textarea.ant-input::-webkit-scrollbar-thumb {
     max-width: 1100px;
     background-color: black;
   }
-
   .left-side {
     height: 650px;
     width: 426px;
@@ -280,7 +276,6 @@ textarea.ant-input::-webkit-scrollbar-thumb {
     align-items: flex-start;
     padding: 20px 30px;
   }
-
   .right-side {
     max-width: 674px;
     border-radius: 20px;
@@ -289,11 +284,9 @@ textarea.ant-input::-webkit-scrollbar-thumb {
   .right-side .ant-form-item-explain-error {
     text-align: end;
   }
-
   .nav-buttons {
     width: 202px;
   }
-
   .header .ant-btn.ant-btn-circle {
     height: 40px !important;
     min-width: 40px !important;
@@ -302,7 +295,6 @@ textarea.ant-input::-webkit-scrollbar-thumb {
     width: 40px;
     height: 40px;
   }
-
   .wrap-home {
     display: flex;
     flex-direction: row;
@@ -401,6 +393,10 @@ textarea.ant-input::-webkit-scrollbar-thumb {
 .notify-item span {
   font-size: 12px;
   font-weight: 700;
+}
+
+.ant-dropdown-menu-item {
+  text-align: center;
 }
 
 .add-image-component {
@@ -863,32 +859,25 @@ textarea.ant-input::-webkit-scrollbar-thumb {
   margin: 0;
 }
 .profile__body .my-masonry-grid {
-  display: -webkit-box;
-  /* Not needed if autoprefixing */
-  display: -ms-flexbox;
-  /* Not needed if autoprefixing */
+  display: -webkit-box; /* Not needed if autoprefixing */
+  display: -ms-flexbox; /* Not needed if autoprefixing */
   display: flex;
-  margin-left: -30px;
-  /* gutter size offset */
+  margin-left: -30px; /* gutter size offset */
   width: auto;
 }
 .profile__body .my-masonry-grid_column {
-  padding-left: 30px;
-  /* gutter size */
+  padding-left: 30px; /* gutter size */
   background-clip: padding-box;
 }
 @media (max-width: 800px) {
   .profile__body .my-masonry-grid {
-    margin-left: -15px;
-    /* gutter size offset */
+    margin-left: -15px; /* gutter size offset */
   }
   .profile__body .my-masonry-grid_column {
-    padding-left: 15px;
-    /* gutter size offset */
+    padding-left: 15px; /* gutter size offset */
   }
   .profile__body .my-masonry-grid_column > img {
-    margin-bottom: 15px;
-    /* space between items */
+    margin-bottom: 15px; /* space between items */
   }
 }
 @media (max-width: 600px) {
@@ -896,16 +885,13 @@ textarea.ant-input::-webkit-scrollbar-thumb {
     padding: 0px;
   }
   .profile__body .my-masonry-grid {
-    margin-left: 25px;
-    /* gutter size offset */
+    margin-left: 25px; /* gutter size offset */
   }
   .profile__body .my-masonry-grid_column {
-    padding-left: 15px;
-    /* gutter size offset */
+    padding-left: 15px; /* gutter size offset */
   }
   .profile__body .my-masonry-grid_column > img {
-    margin-bottom: 15px;
-    /* space between items */
+    margin-bottom: 15px; /* space between items */
   }
 }
 @media (max-width: 700px) {
@@ -913,17 +899,14 @@ textarea.ant-input::-webkit-scrollbar-thumb {
     padding: 0px;
   }
   .profile__body .my-masonry-grid {
-    margin-left: 25px;
-    /* gutter size offset */
+    margin-left: 25px; /* gutter size offset */
   }
   .profile__body .my-masonry-grid_column {
-    padding-left: 15px;
-    /* gutter size offset */
+    padding-left: 15px; /* gutter size offset */
   }
   .profile__body .my-masonry-grid_column > img {
     margin-bottom: 15px;
-    width: 200px;
-    /* spac;e between items */
+    width: 200px; /* spac;e between items */
   }
 }
 .profile .edit-info-button {
@@ -1160,12 +1143,10 @@ textarea.ant-input::-webkit-scrollbar-thumb {
     left: 58%;
     top: 50%;
   }
-
   .logo-bg-roll {
     left: -5%;
     top: -150%;
   }
-
   .img-selfie img {
     position: absolute;
     left: 0px;
@@ -1173,13 +1154,11 @@ textarea.ant-input::-webkit-scrollbar-thumb {
     z-index: 3;
     width: 492px;
   }
-
   .social-buttons {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
   }
-
   .social-button {
     width: 252px;
     transition: all 200ms ease-in-out;
@@ -1188,31 +1167,25 @@ textarea.ant-input::-webkit-scrollbar-thumb {
     background-color: black;
     color: white;
   }
-
   .social-button:nth-child(1) {
     margin: 0px;
   }
-
   .social-button span {
     font-size: 16px;
   }
-
   .left-side p {
     color: white;
     font-size: 18px;
   }
-
   .form-title {
     text-align: left;
     font-size: 24px;
     margin-bottom: 36px;
   }
-
   .icon-social img {
     height: 28px;
     width: 28px;
   }
-
   .btn-black {
     font-size: 16px;
     padding: 12px 0px 12px 0px !important;
@@ -1221,42 +1194,33 @@ textarea.ant-input::-webkit-scrollbar-thumb {
   .btn-black:hover {
     background-color: #363636 !important;
   }
-
   .ant-form-item-explain-error {
     font-size: 12px;
   }
-
   .ant-btn.ant-btn-link {
     font-size: 16px !important;
   }
-
   .btn-avt {
     height: 40px;
     width: 40px;
   }
-
   .btn-avt img {
     height: 40px;
     width: auto;
   }
-
   .notify-item {
     font-size: 12px;
   }
-
   .notify-item span {
     font-size: 14px;
     font-weight: 700;
   }
-
   .three-dot:hover {
     background-color: rgba(177, 177, 177, 0.6);
   }
-
   .detail-post {
     flex-direction: row;
   }
-
   .post {
     max-width: 580px;
     margin: auto;
@@ -1311,7 +1275,6 @@ textarea.ant-input::-webkit-scrollbar-thumb {
     right: 4px;
     top: 24px;
   }
-
   .add-image-component {
     padding: 16px;
     font-size: 15px;
@@ -1327,7 +1290,6 @@ textarea.ant-input::-webkit-scrollbar-thumb {
     width: 410px;
     padding: 10px 0px;
   }
-
   .sider {
     display: block;
     width: 260px;
@@ -1352,11 +1314,9 @@ textarea.ant-input::-webkit-scrollbar-thumb {
   .sider .ant-divider-horizontal {
     margin: 12px 0px !important;
   }
-
   .float-images {
     display: none;
   }
-
   .profile {
     max-width: 1200px;
     margin: auto;
@@ -1415,19 +1375,15 @@ textarea.ant-input::-webkit-scrollbar-thumb {
     border-radius: 50%;
     background-color: white;
   }
-
   .float-count-image {
     left: 16px;
   }
-
   .skeleton-notify {
     width: 308px !important;
   }
-
   .ant-dropdown {
     max-width: none;
   }
-
   .board-notifies .notify .ant-typography {
     font-size: 12px;
   }
@@ -1442,11 +1398,9 @@ textarea.ant-input::-webkit-scrollbar-thumb {
     font-size: 14px;
     font-weight: 700 !important;
   }
-
   .search {
     width: 580px;
   }
-
   .list-search {
     max-width: 580px;
   }
@@ -1456,7 +1410,6 @@ textarea.ant-input::-webkit-scrollbar-thumb {
   .list-search .item-search button {
     font-size: 14px;
   }
-
   .detail-post {
     flex-direction: row-reverse;
     border-radius: 10px;

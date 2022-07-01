@@ -183,8 +183,8 @@ const postSlice = createSlice({
         // Xoá post đƯợc chỉ định
         removePost: (state, action) => {
             state.getPosts.listPosts = state.getPosts.listPosts.filter(post => {
-                console.log(post._id);
-                console.log(action.payload);
+                // console.log(post._id);
+                // console.log(action.payload);
                 return post._id !== action.payload
             });
             console.log(state.getPosts.listPosts);

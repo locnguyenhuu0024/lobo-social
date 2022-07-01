@@ -5,15 +5,16 @@ import UploadPostForm from './UploadPostForm';
 import { useSelector } from 'react-redux';
 import CustomSider from './CustomSider';
 import SkeletonPostCustom from './SkeletonPostCustom';
-import { motion } from 'framer-motion';
 import WaitingScreenCustom from './WaitingScreenCustom';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
-function BodyHome(props){
-    const {posts} = props;
+function BodyHome(){
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [isDoneLoading, setIsDoneLoading] = useState(true);
-    
-
+    const getPosts = useSelector(state => state.post.getPosts.listPosts);
+    const [posts, setPosts] = useState(() => {
+        return [...getPosts.slice(0, 10)];
+    });
     useEffect(() => {
         let idTimeOut = setTimeout(() => {
             setIsDoneLoading(!isDoneLoading);
@@ -22,7 +23,13 @@ function BodyHome(props){
         return () => {
             clearTimeout(idTimeOut);
         }
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        setPosts((prev) => {
+            return [...getPosts.slice(0, 10)];
+        });
+    }, [getPosts]);
 
     const showModal = () => {
         setIsModalVisible(true);
@@ -35,6 +42,12 @@ function BodyHome(props){
     const handleCancel = () => {
         setIsModalVisible(false);
     };
+
+    const loadMoreData = () => {
+        setPosts((prev) => {
+            return [...prev, ...getPosts.slice(prev.length, (prev.length + 10))];
+        });
+    }
 
     return (
         <div className='pt-3 pb-3 wrap-home'>
@@ -78,14 +91,21 @@ function BodyHome(props){
                             />
                         </div>
                     </div>
-                    : <List                     // Có post thì in ra
-                        dataSource={posts}
-                        renderItem={
-                            post => (
-                                <PostCustom key={post._id} post={post} />
-                            )
-                        }
-                    />
+                    : <InfiniteScroll
+                        dataLength={posts.length}
+                        next={loadMoreData}
+                        hasMore={true}
+                    >
+                        <List                     // Có post thì in ra
+                            dataSource={posts}
+                            renderItem={
+                                post => (
+                                    <PostCustom key={post._id} post={post} />
+                                )
+                            }
+                        />
+                    </InfiniteScroll>
+                    
                 }
                 <UploadPostForm 
                     isModalVisible={isModalVisible} 

@@ -46,8 +46,12 @@ function PostHeader({post}){
     const [form] = Form.useForm(); 
 
     const handleDeletePost = () => {
-        const url = `https://lobosocial.me/api/post/delete/${post._id}`;
-        axios.patch(url, {}, {
+        const url = `${
+            process.env.PRODUCTION 
+            ? 'https://lobosocial.me' 
+            : 'http://localhost:4000'
+        }/api/post/delete/${post._id}`;
+        axios.delete(url, {
             headers: {
                 'Authorization': 
                     `Bearer ${currentUser.accessToken}`,
@@ -99,7 +103,11 @@ function PostHeader({post}){
             pathImages,
             contents: e.contents
         };
-        const url = `https://lobosocial.me/api/post/update/${post._id}`;
+        const url = `${
+            process.env.PRODUCTION 
+            ? 'https://lobosocial.me' 
+            : 'http://localhost:4000'
+        }/api/post/update/${post._id}`;
         axios.patch(url, data, {
             headers: {
                 'Authorization': 

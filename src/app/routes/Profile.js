@@ -116,7 +116,11 @@ function Profile(){
     const handleEditInfo = (values) => {
         // TỚI ĐÂY RỒI
         console.log(values);
-        const url = 'http://lobosocial.me/api/user/update';
+        const url = `${
+            process.env.PRODUCTION 
+            ? 'https://lobosocial.me' 
+            : 'http://localhost:4000'
+        }/api/user/update`;
         axios.patch(url, values, {
             headers: {
                 'Authorization': 
