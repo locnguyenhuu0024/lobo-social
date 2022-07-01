@@ -108,6 +108,7 @@ const axiosJWT = (currentUser, dispatch, navigate) => {
                 config.headers['Authorization'] = `Bearer ${data.accessToken}`;
                 config.headers['content-type'] = 'multipart/form-data';
                 config.headers['Access-Control-Allow-Origin'] = '*';
+                config.headers['Access-Control-Allow-Methods'] = 'GET,PUT,POST,DELETE,PATCH,OPTIONS';
             }
             return config;
         }, (err) => {return Promise.reject(err)}
