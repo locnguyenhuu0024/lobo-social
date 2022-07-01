@@ -72,7 +72,7 @@ const config = {
 const refreshToken = async (dispatch, navigate) => {
     try {
         const res = 
-            await axios.put(`${host}/api/v1/auth/refresh-token/`, '', {
+            await axios.put(`${host}/api/auth/refresh-token/`, '', {
                 withCredentials: true,
             });
             return res.data;
