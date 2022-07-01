@@ -61,7 +61,7 @@ import {
 
 import { loadNotifyFailed, loadNotifyStart, loadNotifySuccess } from "./notifySlice";
 
-const host = process.env.PRODUCTION ? 'https://lobosocial.me' : 'http://localhost:4000';
+const host = process.env.REACT_APP_PRODUCTION ? 'https://lobosocial.me' : 'http://localhost:4000';
 const config = {
     headers: {
         "Access-Control-Allow-Origin": "*",

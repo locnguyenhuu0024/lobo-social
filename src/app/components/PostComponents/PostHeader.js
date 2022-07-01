@@ -47,7 +47,7 @@ function PostHeader({post}){
 
     const handleDeletePost = () => {
         const url = `${
-            process.env.PRODUCTION 
+            process.env.REACT_APP_PRODUCTION 
             ? 'https://lobosocial.me' 
             : 'http://localhost:4000'
         }/api/post/delete/${post._id}`;

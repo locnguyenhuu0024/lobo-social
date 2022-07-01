@@ -47,7 +47,7 @@ function BodySearch(){
         const idSearching = setTimeout(() => {
             const query = queryString.stringify({name: searching});
             const url = `${
-                process.env.PRODUCTION 
+                process.env.REACT_APP_PRODUCTION 
                 ? 'https://lobosocial.me' 
                 : 'http://localhost:4000'
             }/api/user/find/?${query}`;
@@ -108,7 +108,7 @@ function BodySearch(){
         });
 
         const url = `${
-            process.env.PRODUCTION 
+            process.env.REACT_APP_PRODUCTION 
             ? 'https://lobosocial.me' 
             : 'http://localhost:4000'
         }/api/user/follow/${id}`;

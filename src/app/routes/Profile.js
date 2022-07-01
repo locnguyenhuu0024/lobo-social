@@ -117,7 +117,7 @@ function Profile(){
         // TỚI ĐÂY RỒI
         console.log(values);
         const url = `${
-            process.env.PRODUCTION 
+            process.env.REACT_APP_PRODUCTION 
             ? 'https://lobosocial.me' 
             : 'http://localhost:4000'
         }/api/user/update`;

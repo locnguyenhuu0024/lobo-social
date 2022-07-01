@@ -53,7 +53,7 @@ function HeaderCustom(props){
     const [openNotifies, setOpenNotifies] = useState(false);
     const [openFollow, setOpenFollow] = useState(false);
     const socket = io(`${
-        process.env.PRODUCTION 
+        process.env.REACT_APP_PRODUCTION 
         ? 'https://lobosocial.me' 
         : 'http://localhost:4000'
     }`);
