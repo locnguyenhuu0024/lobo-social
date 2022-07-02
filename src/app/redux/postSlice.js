@@ -187,7 +187,7 @@ const postSlice = createSlice({
                 // console.log(action.payload);
                 return post._id !== action.payload
             });
-            console.log(state.getPosts.listPosts);
+            // console.log(state.getPosts.listPosts);
         },
 
         // reset về mặc định

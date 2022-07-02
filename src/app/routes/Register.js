@@ -66,7 +66,7 @@ function Register(props){
                     <RegisterForm />
                     <Divider style={{fontSize: '14px'}} orientation='center'>HOẶC</Divider>
                     <div>
-                        <div className='social-buttons'>
+                        {/* <div className='social-buttons'>
                             <button className='social-button icon-social'>
                                 <img src='/images/facebook.png' alt='facebook'/>
                                 <span>Đăng ký với Facebook</span>
@@ -75,7 +75,7 @@ function Register(props){
                                 <img src='/images/google.png' alt='google'/>
                                 <span>Đăng ký với Google</span>
                             </button>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>

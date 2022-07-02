@@ -68,7 +68,7 @@ function RegisterForm(props){
     }
 
     function handleAfterCrop(e){
-        console.log(e);
+        // console.log(e);
     }
 
 

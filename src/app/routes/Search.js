@@ -29,7 +29,7 @@ function BodySearch(){
         let result = following.list.find(user => {
             return user._id === id
         });
-        console.log(result);
+        // console.log(result);
         // Nếu có thì trả về true, ko thì
         return result ? true : false;
     };
@@ -71,7 +71,7 @@ function BodySearch(){
                 setSearchLoading(false);
                 // TỚI ĐÂY RỒI :____))))
             }).catch(err => {
-                console.log(err);
+                // console.log(err);
                 setSearchLoading(false);
             })
         }, 500);
@@ -92,7 +92,7 @@ function BodySearch(){
                     newFollowed[u._id] = false;
                 }
             }else{
-                console.log(0);
+                // console.log(0);
             }
         }
 

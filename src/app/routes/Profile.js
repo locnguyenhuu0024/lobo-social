@@ -115,7 +115,7 @@ function Profile(){
 
     const handleEditInfo = (values) => {
         // TỚI ĐÂY RỒI
-        console.log(values);
+        // console.log(values);
         const url = `${
             process.env.REACT_APP_PRODUCTION 
             ? 'https://lobosocial.me' 

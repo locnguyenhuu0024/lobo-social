@@ -46,12 +46,12 @@ function Login(props){
     };
 
     const onLoginFailure = (res) => {
-        console.log('Login Failed:', res);
+        //console.log('Login Failed:', res);
     };
 
     const responseFacebook = (res) => {  
         
-        console.log(res);
+        //console.log(res);
         const data = {
             firstname: res.name,
             lastname: '..',

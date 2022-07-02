@@ -74,6 +74,10 @@ const refreshToken = async (dispatch, navigate) => {
         const res = 
             await axios.put(`${host}/api/auth/refresh-token/`, '', {
                 withCredentials: true,
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
+                }
             });
             return res.data;
     } catch (error) {
@@ -379,7 +383,7 @@ export const loadNotify = async (path, currentUser, dispatch, navigate) => {
             }
         });
         setTimeout(() => {
-            console.log(notifies.data);
+            // console.log(notifies.data);
             dispatch(loadNotifySuccess(notifies.data));
         }, 300);
     } catch (error) {
