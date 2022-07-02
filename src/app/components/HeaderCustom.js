@@ -198,9 +198,9 @@ function HeaderCustom(props){
                                 paragraph={{rows: 1}}
                                 className='skeleton-notify'
                             >
-                                <Button
+                                <Link
                                     type='link'
-                                    href={`/post/${[item.postID]}`}
+                                    to={`/post/${[item.postID]}`}
                                 >
                                     <Comment
                                         author={
@@ -241,7 +241,7 @@ function HeaderCustom(props){
                                             </span>
                                         }
                                     />
-                                </Button>
+                                </Link>
                             </Skeleton>
                         </div>
                     }
