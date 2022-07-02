@@ -262,7 +262,9 @@ export const uploadPost = async (path, currentUser, post, dispatch, navigate) =>
             headers: {
                 'Authorization': 
                     `Bearer ${currentUser.accessToken}`,
-                'content-type': 'multipart/form-data'
+                'content-type': 'multipart/form-data',
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
             }
         });
         setTimeout(() => {
