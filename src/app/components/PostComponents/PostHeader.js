@@ -102,14 +102,13 @@ function PostHeader({post}){
             dataUpdate.append('postImages', newImage[key].originFileObj);
         }
         dataUpdate.append('updatedPath', originImages);
-        console.log(originImages);
 
         const url = `${
             process.env.REACT_APP_PRODUCTION 
             ? 'https://lobosocial.me' 
             : 'http://localhost:4000'
         }/api/post/update/${post._id}`;
-        
+
         axios.patch(url, dataUpdate, {
             headers: {
                 'Authorization': 
