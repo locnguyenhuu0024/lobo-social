@@ -196,6 +196,17 @@ const postSlice = createSlice({
             state.uploadPost.error = false;
             state.uploadPost.success = false;
             state.uploadPost.uploadedPost = null;
+        },
+
+        // Cap nhat post thu cong
+        manualUpdatePost: (state, action) => {
+            const idPost 
+                = state.getPosts.listPosts.findIndex(
+                    post => post._id === action.payload._id
+                );
+            if(idPost > -1){
+                state.getPosts.listPosts[idPost] = action.payload;
+            }
         }
     }
 });
@@ -228,6 +239,7 @@ export const {
     clearPost,
     updateListPost,
     removePost,
-    resetUploadPost
+    resetUploadPost,
+    manualUpdatePost
 } = postSlice.actions;
 export default postSlice.reducer;

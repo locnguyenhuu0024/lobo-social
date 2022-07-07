@@ -19,7 +19,8 @@ function CustomSider(props){
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const currentUser = useSelector(state => state.auth.login.currentUser);
-    const {list: listFollowing, isFetching: isLoadFollow} = useSelector(state => state.user.loadFollowing);
+    const {list: listFollowing, isFetching: isLoadFollow} 
+        = useSelector(state => state.user.loadFollowing);
     const path = '/api/user/follow';
 
     useEffect(() => {

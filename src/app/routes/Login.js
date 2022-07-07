@@ -106,7 +106,7 @@ function Login(props){
 
                             <FacebookLogin
                                 appId="695441924883650"
-                                autoLoad={true}
+                                autoLoad={false}
                                 fields="name,email,picture"
                                 callback={responseFacebook}
                                 cssClass="social-button icon-social"
