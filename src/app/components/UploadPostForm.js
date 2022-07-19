@@ -44,9 +44,10 @@ const UploadPostForm = (props) => {
         // Chia 1024 2 lần để tính ra số MB
         // do file gốc được định dạng dung lượng là KB
         // 1MB = 1024KB * 1024KB
-        const isLt2M = file.size / 1024 / 1024 < 4;
+        // file phai nho hon 10MB
+        const isLt2M = file.size / 1024 / 1024 < 10;
         if (!isLt2M) {
-            message.error('Dung lượng ảnh không được lớn hơn 4MB!');
+            message.error('Dung lượng ảnh không được lớn hơn 10MB!');
             return false;
         }
         // return isJpgOrPng && isLt2M;
