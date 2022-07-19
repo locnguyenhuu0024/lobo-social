@@ -362,7 +362,8 @@
         }
 
         .comments-log{
-            height: 450px;
+            // height: 450px;'
+            height: fit-content;
             overflow-y: scroll;
         }
 

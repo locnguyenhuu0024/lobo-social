@@ -23,14 +23,14 @@ function CmtFormCustom(props){
 
     useEffect(() => {
         //Focus vào ô nhập bình luận
-        document.getElementById(`comment-${idPost}`).focus({cursor: 'start'});
+        //document.getElementById(`comment-${idPost}`).focus({cursor: 'start'});
 
         // Cuộn tới khung nhập comment
-        document.getElementById(`comment-form-post-${idPost}`).scrollIntoView({
-            behavior: 'smooth', 
-            block: 'center', 
-            inline: 'center'
-        });
+        // document.getElementById(`comment-form-post-${idPost}`).scrollIntoView({
+        //     behavior: 'smooth', 
+        //     block: 'center', 
+        //     inline: 'center'
+        // });
     }, []);
     const handlePressEnter = (e) => {
         handlePushComment(inputCmt);

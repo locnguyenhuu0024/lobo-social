@@ -620,7 +620,7 @@ textarea.ant-input::-webkit-scrollbar-thumb {
   font-size: 14px;
 }
 .detail-post .right .comments-log {
-  height: 450px;
+  height: fit-content;
   overflow-y: scroll;
 }
 .detail-post .right .comment-form {
