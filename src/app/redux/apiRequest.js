@@ -263,13 +263,13 @@ export const uploadPost = async (path, currentUser, post, dispatch, navigate) =>
                 'Authorization': 
                     `Bearer ${currentUser.accessToken}`,
                 'content-type': 'multipart/form-data',
-                // "Access-Control-Allow-Headers": "*",
-                // "Access-Control-Allow-Origin": `${
-                //     process.env.REACT_APP_PRODUCTION 
-                //     ? 'https://lobosocial.me' 
-                //     : 'http://localhost:4000'
-                // }`,
-                // "Access-Control-Allow-Methods": "*"
+                "Access-Control-Allow-Headers": "*",
+                "Access-Control-Allow-Origin": `${
+                    process.env.REACT_APP_PRODUCTION 
+                    ? 'https://lobo.today' 
+                    : 'http://localhost:3000'
+                }`,
+                "Access-Control-Allow-Methods": "*"
             }
         });
         setTimeout(() => {
