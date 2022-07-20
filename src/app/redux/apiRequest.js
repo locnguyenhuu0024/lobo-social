@@ -93,7 +93,7 @@ const refreshToken = async (dispatch, navigate) => {
 const axiosJWT = (currentUser, dispatch, navigate) => {
     const createAxios = axios.create({
         headers: {
-            'Access-Control-Allow-Origin': '*',
+            //'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json',
         },
         withCredentials: true
@@ -263,11 +263,11 @@ export const uploadPost = async (path, currentUser, post, dispatch, navigate) =>
                 'Authorization': 
                     `Bearer ${currentUser.accessToken}`,
                 'content-type': 'multipart/form-data',
-                "Access-Control-Allow-Origin": `${
-                    process.env.REACT_APP_PRODUCTION 
-                    ? 'https://lobo.today' 
-                    : 'http://localhost:3000'
-                }`,
+                // "Access-Control-Allow-Origin": `${
+                //     process.env.REACT_APP_PRODUCTION 
+                //     ? 'https://lobo.today' 
+                //     : 'http://localhost:3000'
+                // }`,
             }
         });
         setTimeout(() => {
